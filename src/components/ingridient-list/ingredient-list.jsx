@@ -1,7 +1,8 @@
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import IngredientStyles from "../burger-ingredients/burger-ingredients.module.css";
+import PropTypes from "prop-types";
 
-const Ingredient = ({ data, title }) => {
+const IngredientList = ({ data, title }) => {
   return (
     <>
       <p
@@ -30,4 +31,9 @@ const Ingredient = ({ data, title }) => {
   );
 };
 
-export default Ingredient;
+IngredientList.propTypes = {
+  data: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired,
+  title: PropTypes.string
+}
+
+export default IngredientList;

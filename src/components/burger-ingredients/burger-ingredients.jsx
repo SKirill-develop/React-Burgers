@@ -1,5 +1,5 @@
 import React from "react";
-import Ingedient from "../ingredient/ingredient";
+import IngredientList from "../ingridient-list/ingredient-list";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import IngredientStyles from "./burger-ingredients.module.css";
 import PropTypes from "prop-types";
@@ -28,9 +28,9 @@ const BurgerIngredients = ({ data }) => {
         </Tab>
       </nav>
 
-      {current === "bun" && <Ingedient data={bun} title="Булки" />}
-      {current === "sauce" && <Ingedient data={sauce} title="Соусы" />}
-      {current === "main" && <Ingedient data={main} title="Начинки" />}
+      {current === "bun" && <IngredientList data={bun} title="Булки" />}
+      {current === "sauce" && <IngredientList data={sauce} title="Соусы" />}
+      {current === "main" && <IngredientList data={main} title="Начинки" />}
     </div>
   );
 };
