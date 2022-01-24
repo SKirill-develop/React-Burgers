@@ -3,6 +3,7 @@ import IngredientList from "../ingridient-list/ingredient-list";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import IngredientStyles from "./burger-ingredients.module.css";
 import PropTypes from "prop-types";
+import ingredientPropTypes from "../../utils/constants";
 
 const BurgerIngredients = ({ data, action }) => {
   const [current, setCurrent] = React.useState("bun");
@@ -17,9 +18,11 @@ const BurgerIngredients = ({ data, action }) => {
         Соберите бургер
       </p>
       <nav className={IngredientStyles.ingredients__tabs}>
+      <div>
         <Tab value="bun" active={current === "bun"} onClick={setCurrent}>
           Булки
         </Tab>
+        </div>
         <Tab value="sauce" active={current === "sauce"} onClick={setCurrent}>
           Соусы
         </Tab>
@@ -27,16 +30,17 @@ const BurgerIngredients = ({ data, action }) => {
           Начинки
         </Tab>
       </nav>
-
-      {current === "bun" && <IngredientList data={bun} action={action} title="Булки" />}
-      {current === "sauce" && <IngredientList data={sauce} action={action} title="Соусы" />}
-      {current === "main" && <IngredientList data={main} action={action} title="Начинки" />}
+      <div className={IngredientStyles.ingredients__list}>
+      <IngredientList data={bun} action={action} title="Булки" />
+      <IngredientList data={sauce} action={action} title="Соусы" />
+      <IngredientList data={main} action={action} title="Начинки" />
+      </div>
     </div>
   );
 };
 
 BurgerIngredients.propTypes = {
-  data: PropTypes.arrayOf(PropTypes.object.isRequired),
+  data: PropTypes.arrayOf(ingredientPropTypes).isRequired,
   action: PropTypes.func.isRequired
 };
 

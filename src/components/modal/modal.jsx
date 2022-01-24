@@ -7,7 +7,7 @@ import PropTypes from "prop-types";
 
 const modalRoot = document.getElementById("react-modals");
 
-const Modal = ({ title, closed, children }) => {
+const Modal = ({ title, closed, children, action }) => {
   useEffect(() => {
     const closeEsc = (e) => {
       if (e.key === "Escape" || e.key === "Esc") {
@@ -23,7 +23,7 @@ const Modal = ({ title, closed, children }) => {
 
   return ReactDOM.createPortal(
     <>
-      <ModalOverlay closed={closed} />
+      <ModalOverlay closed={closed}/>
       <div className={modalStyles.modal}>
         <span className={modalStyles.close}>
           <CloseIcon type="primary" onClick={closed} />

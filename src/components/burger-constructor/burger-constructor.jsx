@@ -7,6 +7,7 @@ import {
   CurrencyIcon,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
+import ingredientPropTypes from "../../utils/constants";
 
 const BurgerConstructor = ({ data, action }) => {
   return (
@@ -65,7 +66,7 @@ const BurgerConstructor = ({ data, action }) => {
 };
 
 BurgerConstructor.propTypes = {
-  data: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired,
+  data: PropTypes.arrayOf(ingredientPropTypes).isRequired,
   action: PropTypes.func.isRequired
 }
 

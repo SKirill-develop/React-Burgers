@@ -17,18 +17,21 @@
 .ingredients__list {
   list-style: none;
   padding: 0;
+
+  width: 100%;
+  overflow: auto;
+}
+
+.ingredient__list {
   display: grid;
   grid-template-columns: 270px 270px;
   gap: 32px 24px;
   justify-content: center;
-  width: 100%;
-  overflow: auto;
 }
 
 .ingredients__container{
   display: flex;
 }
-
 
 .ingredients__list::-webkit-scrollbar {
   width: 8px;

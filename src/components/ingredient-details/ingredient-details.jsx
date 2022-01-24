@@ -1,5 +1,6 @@
 import PropTypes from "prop-types";
 import detailsStyles from "./ingredient-details.module.css";
+import ingredientPropTypes from "../../utils/constants";
 
 const IngredientDetails = ({ currentsIngredients, data }) => {
   const ingredient = data.filter((item) => item._id === currentsIngredients);
@@ -59,7 +60,7 @@ const IngredientDetails = ({ currentsIngredients, data }) => {
 };
 
 IngredientDetails.propTypes = {
-  data: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired,
+  data: PropTypes.arrayOf(ingredientPropTypes).isRequired,
   currentsIngredients: PropTypes.string.isRequired,
 };
 
