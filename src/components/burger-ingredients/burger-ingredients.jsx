@@ -4,7 +4,7 @@ import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import IngredientStyles from "./burger-ingredients.module.css";
 import PropTypes from "prop-types";
 
-const BurgerIngredients = ({ data }) => {
+const BurgerIngredients = ({ data, action }) => {
   const [current, setCurrent] = React.useState("bun");
 
   const bun = data.filter((el) => el.type === "bun");
@@ -28,9 +28,9 @@ const BurgerIngredients = ({ data }) => {
         </Tab>
       </nav>
 
-      {current === "bun" && <IngredientList data={bun} title="Булки" />}
-      {current === "sauce" && <IngredientList data={sauce} title="Соусы" />}
-      {current === "main" && <IngredientList data={main} title="Начинки" />}
+      {current === "bun" && <IngredientList data={bun} action={action} title="Булки" />}
+      {current === "sauce" && <IngredientList data={sauce} action={action} title="Соусы" />}
+      {current === "main" && <IngredientList data={main} action={action} title="Начинки" />}
     </div>
   );
 };

@@ -8,7 +8,7 @@ import {
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 
-const BurgerConstructor = ({ data }) => {
+const BurgerConstructor = ({ data, action }) => {
   return (
     <div className="mt-25">
       <div className="m-4">
@@ -55,7 +55,7 @@ const BurgerConstructor = ({ data }) => {
           <CurrencyIcon type="primary" />
         </div>
         <div>
-          <Button type="primary" size="medium">
+          <Button type="primary" size="medium" onClick={action}>
             Оформить заказ
           </Button>
         </div>
