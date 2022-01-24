@@ -7,7 +7,7 @@ import PropTypes from "prop-types";
 
 const modalRoot = document.getElementById("react-modals");
 
-const Modal = ({ title, closed, children, action }) => {
+const Modal = ({ title, closed, children }) => {
   useEffect(() => {
     const closeEsc = (e) => {
       if (e.key === "Escape" || e.key === "Esc") {
