@@ -1,8 +1,9 @@
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import IngredientStyles from "../burger-ingredients/burger-ingredients.module.css";
 import PropTypes from "prop-types";
+import ingredientPropTypes from "../../utils/constants";
 
-const IngredientList = ({ data, title }) => {
+const IngredientList = ({ data, title, action }) => {
   return (
     <>
       <p
@@ -12,10 +13,13 @@ const IngredientList = ({ data, title }) => {
       >
         {title}
       </p>
-
-      <ul className={IngredientStyles.ingredients__list}>
+      <ul className={IngredientStyles.ingredient__list}>
         {data.map((item) => (
-          <li key={item._id} className={IngredientStyles.ingredients__item}>
+          <li
+            key={item._id}
+            className={IngredientStyles.ingredients__item}
+            onClick={() => action(item._id)}
+          >
             <img src={item.image} alt={item.name} />
             <div className={IngredientStyles.contain + " mt-2 mb-2"}>
               <p className="text text_type_digits-default pr-2">
@@ -32,8 +36,9 @@ const IngredientList = ({ data, title }) => {
 };
 
 IngredientList.propTypes = {
-  data: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired,
-  title: PropTypes.string
-}
+  data: PropTypes.arrayOf(ingredientPropTypes).isRequired,
+  title: PropTypes.string,
+  action: PropTypes.func.isRequired,
+};
 
 export default IngredientList;

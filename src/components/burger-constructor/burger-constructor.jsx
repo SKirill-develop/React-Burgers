@@ -1,13 +1,15 @@
 import burgerConstructorStyle from "./burger-constructor.module.css";
 import PropTypes from "prop-types";
+import img from "@ya.praktikum/react-developer-burger-ui-components/dist/images/img.png";
 import {
   DragIcon,
   ConstructorElement,
   CurrencyIcon,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
+import ingredientPropTypes from "../../utils/constants";
 
-const BurgerConstructor = ({ data }) => {
+const BurgerConstructor = ({ data, action }) => {
   return (
     <div className="mt-25">
       <div className="m-4">
@@ -15,9 +17,9 @@ const BurgerConstructor = ({ data }) => {
           <ConstructorElement
             type="top"
             isLocked={true}
-            text={data[0].name + " (верх)"}
-            price={data[0].price}
-            thumbnail={data[0].image}
+            text={"Краторная булка N-200i (верх)"}
+            price={1255}
+            thumbnail={img}
           />
         </div>
 
@@ -42,9 +44,9 @@ const BurgerConstructor = ({ data }) => {
           <ConstructorElement
             type="bottom"
             isLocked={true}
-            text={data[0].name + " (низ)"}
-            price={data[0].price}
-            thumbnail={data[0].image}
+            text={"Краторная булка N-200i (низ)"}
+            price={1255}
+            thumbnail={img}
           />
         </div>
       </div>
@@ -54,7 +56,7 @@ const BurgerConstructor = ({ data }) => {
           <CurrencyIcon type="primary" />
         </div>
         <div>
-          <Button type="primary" size="medium">
+          <Button type="primary" size="medium" onClick={action}>
             Оформить заказ
           </Button>
         </div>
@@ -64,7 +66,8 @@ const BurgerConstructor = ({ data }) => {
 };
 
 BurgerConstructor.propTypes = {
-  data: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired
+  data: PropTypes.arrayOf(ingredientPropTypes).isRequired,
+  action: PropTypes.func.isRequired
 }
 
 export default BurgerConstructor;
