@@ -38,6 +38,7 @@ const IngredientList = ({ data, title, action }) => {
 IngredientList.propTypes = {
   data: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired,
   title: PropTypes.string,
+  action: PropTypes.func.isRequired
 };
 
 export default IngredientList;

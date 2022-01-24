@@ -59,6 +59,7 @@ const IngredientDetails = ({ currentsIngredients, data }) => {
 };
 
 IngredientDetails.propTypes = {
+  data: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired,
   currentsIngredients: PropTypes.string.isRequired,
 };
 

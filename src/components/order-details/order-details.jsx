@@ -3,7 +3,7 @@ import { CheckMarkIcon } from "@ya.praktikum/react-developer-burger-ui-component
 
 const OrderDetails = () => {
   return (
-    <div className={orderStyles.contain + " pt-15 pr-25 pl-25 pb-30"}>
+    <div className={orderStyles.container + " pt-15 pr-25 pl-25 pb-30"}>
       <p className={orderStyles.order + " text text_type_digits-large mb-8"}>
         034536
       </p>
