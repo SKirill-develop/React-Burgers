@@ -11,10 +11,10 @@ import { url } from "../../utils/constants"
 const App = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [currentsIngredients, setCurrentsIngredients] = useState("");
+  const [currentIngredientId, setCurrentIngredientId] = useState("");
 
-  const openIngredientModal = (id) => setCurrentsIngredients(id);
-  const closeIngredientModal = () => setCurrentsIngredients("");
+  const openIngredientModal = (id) => setCurrentIngredientId(id);
+  const closeIngredientModal = () => setCurrentIngredientId("");
 
 
   const checkRes = (res) => {
@@ -41,21 +41,19 @@ const App = () => {
       ) : (
         <>
           <AppHeader />
-          <div className={appStyles.app__container}>
-            <BurgerIngredients data={data} action={openIngredientModal} />
           <DataContext.Provider value={data}>
-            <BurgerConstructor/>
-          </DataContext.Provider>
-          </div>
-          {currentsIngredients && (
-            <DataContext.Provider value={data}>
-            <Modal closed={closeIngredientModal} title="Детали ингредиента">
+            <div className={appStyles.app__container}>
+              <BurgerIngredients action={openIngredientModal} />
+              <BurgerConstructor/>
+            </div>
+          {currentIngredientId && ( 
+            <Modal onClose={closeIngredientModal} title="Детали ингредиента">
               <IngredientDetails
-                currentsIngredients={currentsIngredients}
+                currentIngredientId={currentIngredientId}
               />
             </Modal>
-            </DataContext.Provider>
           )}
+            </DataContext.Provider>
           </>
       )}
     </>

@@ -1,12 +1,11 @@
 import PropTypes from "prop-types";
 import { useContext } from "react";
 import detailsStyles from "./ingredient-details.module.css";
-import ingredientPropTypes from "../../utils/interfaces";
 import { DataContext } from "../../services/DataContext";
 
-const IngredientDetails = ({ currentsIngredients }) => {
+const IngredientDetails = ({ currentIngredientId }) => {
   const ingredients = useContext(DataContext);
-  const ingredient = ingredients.filter((item) => item._id === currentsIngredients);
+  const ingredient = ingredients.filter((item) => item._id === currentIngredientId);
   return (
     <>
       {ingredient.map((item) => {
@@ -63,7 +62,7 @@ const IngredientDetails = ({ currentsIngredients }) => {
 };
 
 IngredientDetails.propTypes = {
-  currentsIngredients: PropTypes.string.isRequired,
+  currentIngredientId: PropTypes.string.isRequired,
 };
 
 export default IngredientDetails;

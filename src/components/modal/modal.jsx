@@ -7,11 +7,11 @@ import PropTypes from "prop-types";
 
 const modalRoot = document.getElementById("react-modals");
 
-const Modal = ({ title, closed, children }) => {
+const Modal = ({ title, onClose, children }) => {
   useEffect(() => {
     const closeEsc = (e) => {
       if (e.key === "Escape" || e.key === "Esc") {
-        closed();
+        onClose();
       }
     }
     document.addEventListener("keyup", closeEsc);
@@ -19,14 +19,14 @@ const Modal = ({ title, closed, children }) => {
     return () => {
       document.removeEventListener("keyup", closeEsc);
     };
-  }, [closed]);
+  }, [onClose]);
 
   return ReactDOM.createPortal(
     <>
-      <ModalOverlay closed={closed}/>
+      <ModalOverlay closed={onClose}/>
       <div className={modalStyles.modal}>
         <span className={modalStyles.close}>
-          <CloseIcon type="primary" onClick={closed} />
+          <CloseIcon type="primary" onClick={onClose} />
         </span>
         <h3
           className={
@@ -44,7 +44,7 @@ const Modal = ({ title, closed, children }) => {
 };
 
 Modal.propTypes = {
-  closed: PropTypes.func.isRequired,
+  onClose: PropTypes.func.isRequired,
   title: PropTypes.string,
   children: PropTypes.object.isRequired,
 };

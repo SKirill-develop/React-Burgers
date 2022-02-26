@@ -97,7 +97,7 @@ const BurgerConstructor = () => {
             Оформить заказ
           </Button>
           {isOrdered && (
-            <Modal closed={() => setIsOrdered(false)}>
+            <Modal onClose={() => setIsOrdered(false)}>
               <OrderDetails orderNumber={number} />
             </Modal>
           )}
