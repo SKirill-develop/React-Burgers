@@ -16,8 +16,8 @@ const BurgerConstructor = () => {
   const selectedBun = useMemo(() => {
     return ingredients.find((el) => el.type === "bun");
   }, [ingredients]);
-  const [number, setNumber] = useState("");
-  const [order, setOrder] = useState(false);
+  const [number, setNumber] = useState(0);
+  const [isOrdered, setIsOrdered] = useState(false);
 
   const main = useMemo(() => {
     return ingredients.filter((el) => el.type !== "bun");
@@ -46,8 +46,8 @@ const BurgerConstructor = () => {
     })
       .then((res) => res.json())
       .then((res) => setNumber(res.order.number))
-      .catch((err) => console.log(err));
-    setOrder(true);
+      .catch((err) => console.log(err))
+      .finally(setIsOrdered(true))
   }, [ingredientsIDs]);
 
   return (
@@ -64,10 +64,7 @@ const BurgerConstructor = () => {
         </div>
 
         <ul className={burgerConstructorStyle.elements}>
-          {ingredients.map((item, index) => {
-            if (item.type === "bun") {
-              return null;
-            }
+          {main.map((item, index) => {
             return (
               <li key={index} className="m-4">
                 <DragIcon type="primary" />
@@ -99,9 +96,9 @@ const BurgerConstructor = () => {
           <Button type="primary" size="medium" onClick={getOrderNumber}>
             Оформить заказ
           </Button>
-          {order && (
-            <Modal closed={() => setOrder(false)}>
-              <OrderDetails orderNumber={String(number)} />
+          {isOrdered && (
+            <Modal closed={() => setIsOrdered(false)}>
+              <OrderDetails orderNumber={number} />
             </Modal>
           )}
         </div>

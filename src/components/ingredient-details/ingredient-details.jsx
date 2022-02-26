@@ -1,9 +1,12 @@
 import PropTypes from "prop-types";
+import { useContext } from "react";
 import detailsStyles from "./ingredient-details.module.css";
-import ingredientPropTypes from "../../utils/constants";
+import ingredientPropTypes from "../../utils/interfaces";
+import { DataContext } from "../../services/DataContext";
 
-const IngredientDetails = ({ currentsIngredients, data }) => {
-  const ingredient = data.filter((item) => item._id === currentsIngredients);
+const IngredientDetails = ({ currentsIngredients }) => {
+  const ingredients = useContext(DataContext);
+  const ingredient = ingredients.filter((item) => item._id === currentsIngredients);
   return (
     <>
       {ingredient.map((item) => {
@@ -60,7 +63,6 @@ const IngredientDetails = ({ currentsIngredients, data }) => {
 };
 
 IngredientDetails.propTypes = {
-  data: PropTypes.arrayOf(ingredientPropTypes).isRequired,
   currentsIngredients: PropTypes.string.isRequired,
 };
 

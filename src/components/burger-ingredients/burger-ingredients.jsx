@@ -3,7 +3,7 @@ import IngredientList from "../ingridient-list/ingredient-list";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import IngredientStyles from "./burger-ingredients.module.css";
 import PropTypes from "prop-types";
-import ingredientPropTypes from "../../utils/constants";
+import ingredientPropTypes from "../../utils/interfaces";
 
 const BurgerIngredients = ({ data, action }) => {
   const [current, setCurrent] = React.useState("bun");

@@ -35,28 +35,30 @@ const App = () => {
   }, []);
 
   return (
-    <div>
+    <>
       {loading ? (
         <h1>Loading...</h1>
       ) : (
-        <DataContext.Provider value={data}>
+        <>
           <AppHeader />
           <div className={appStyles.app__container}>
             <BurgerIngredients data={data} action={openIngredientModal} />
-
+          <DataContext.Provider value={data}>
             <BurgerConstructor/>
+          </DataContext.Provider>
           </div>
           {currentsIngredients && (
-            <Modal closed={closeIngredientModal} title={"Детали ингредиента"}>
+            <DataContext.Provider value={data}>
+            <Modal closed={closeIngredientModal} title="Детали ингредиента">
               <IngredientDetails
                 currentsIngredients={currentsIngredients}
-                data={data}
               />
             </Modal>
+            </DataContext.Provider>
           )}
-        </DataContext.Provider>
+          </>
       )}
-    </div>
+    </>
   );
 };
 export default App;
