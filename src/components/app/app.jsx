@@ -5,18 +5,17 @@ import BurgerConstructor from "../burger-constructor/burger-constructor";
 import appStyles from "./app.module.css";
 import Modal from "../modal/modal";
 import IngredientDetails from "../ingredient-details/ingredient-details";
-import OrderDetails from "../order-details/order-details";
+import { DataContext } from "../../services/DataContext";
+import { url } from "../../utils/constants"
 
 const App = () => {
   const [data, setData] = useState([]);
-  const [showModalDetails, setShowModalDetails] = useState(false);
-  const [currentsIngredients, setCurrentsIngredients] = useState("");
-  const url = "https://norma.nomoreparties.space/api";
+  const [loading, setLoading] = useState(true);
+  const [currentIngredientId, setCurrentIngredientId] = useState("");
 
-  const openIngredientModal = (id) => setCurrentsIngredients(id);
-  const closeIngredientModal = () => setCurrentsIngredients("");
-  const openModalOrder = () => setShowModalDetails(true);
-  const closeModalOrder = () => setShowModalDetails(false);
+  const openIngredientModal = (id) => setCurrentIngredientId(id);
+  const closeIngredientModal = () => setCurrentIngredientId("");
+
 
   const checkRes = (res) => {
     if (res.ok) {
@@ -28,31 +27,36 @@ const App = () => {
   useEffect(() => {
     fetch(`${url}/ingredients`)
       .then(checkRes)
-      .then((res) => setData(res.data))
+      .then((res) => {
+        setData(res.data);
+        setLoading(false);
+      })
       .catch((err) => console.log(err));
   }, []);
 
   return (
-    <div>
-      <AppHeader />
-      <div className={appStyles.app__container}>
-        <BurgerIngredients data={data} action={openIngredientModal} />
-        <BurgerConstructor data={data} action={openModalOrder} />
-      </div>
-      {currentsIngredients && (
-        <Modal closed={closeIngredientModal} title={"Детали ингредиента"}>
-          <IngredientDetails
-            currentsIngredients={currentsIngredients}
-            data={data}
-          />
-        </Modal>
+    <>
+      {loading ? (
+        <h1>Loading...</h1>
+      ) : (
+        <>
+          <AppHeader />
+          <DataContext.Provider value={data}>
+            <div className={appStyles.app__container}>
+              <BurgerIngredients action={openIngredientModal} />
+              <BurgerConstructor/>
+            </div>
+          {currentIngredientId && ( 
+            <Modal onClose={closeIngredientModal} title="Детали ингредиента">
+              <IngredientDetails
+                currentIngredientId={currentIngredientId}
+              />
+            </Modal>
+          )}
+            </DataContext.Provider>
+          </>
       )}
-      {showModalDetails && (
-        <Modal closed={closeModalOrder}>
-          <OrderDetails />
-        </Modal>
-      )}
-    </div>
+    </>
   );
 };
 export default App;
