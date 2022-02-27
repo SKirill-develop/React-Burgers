@@ -1,11 +1,16 @@
 import PropTypes from "prop-types";
 import { useContext } from "react";
 import detailsStyles from "./ingredient-details.module.css";
-import { DataContext } from "../../services/DataContext";
+import { useSelector } from "react-redux";
 
 const IngredientDetails = ({ currentIngredientId }) => {
-  const ingredients = useContext(DataContext);
-  const ingredient = ingredients.filter((item) => item._id === currentIngredientId);
+  const ingredients = useSelector(
+    (state) => state.ingredientsReducer.ingredients
+  );
+
+  const ingredient = ingredients.filter(
+    (item) => item._id === currentIngredientId
+  );
   return (
     <>
       {ingredient.map((item) => {

@@ -1,4 +1,5 @@
-import { useContext, useMemo, useCallback, useState } from "react";
+import { useMemo, useCallback, useState } from "react";
+import { useSelector } from "react-redux";
 import burgerConstructorStyle from "./burger-constructor.module.css";
 import { url } from "../../utils/constants";
 import Modal from "../modal/modal";
@@ -9,10 +10,12 @@ import {
   CurrencyIcon,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { DataContext } from "../../services/DataContext";
 
 const BurgerConstructor = () => {
-  const ingredients = useContext(DataContext);
+  const ingredients = useSelector(
+    (state) => state.ingredientsReducer.ingredients
+  );
+
   const selectedBun = useMemo(() => {
     return ingredients.find((el) => el.type === "bun");
   }, [ingredients]);
@@ -47,7 +50,7 @@ const BurgerConstructor = () => {
       .then((res) => res.json())
       .then((res) => setNumber(res.order.number))
       .catch((err) => console.log(err))
-      .finally(setIsOrdered(true))
+      .finally(setIsOrdered(true));
   }, [ingredientsIDs]);
 
   return (

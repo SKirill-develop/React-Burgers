@@ -1,12 +1,13 @@
-import  { useContext, useState}from "react";
+import { useState } from "react";
 import IngredientList from "../ingridient-list/ingredient-list";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import IngredientStyles from "./burger-ingredients.module.css";
 import PropTypes from "prop-types";
-import { DataContext } from "../../services/DataContext";
+import { useSelector } from "react-redux";
 
 const BurgerIngredients = ({ action }) => {
-  const data = useContext(DataContext);
+  const data = useSelector((state) => state.ingredientsReducer.ingredients);
+
   const [current, setCurrent] = useState("bun");
 
   const bun = data.filter((el) => el.type === "bun");
@@ -19,10 +20,10 @@ const BurgerIngredients = ({ action }) => {
         Соберите бургер
       </p>
       <nav className={IngredientStyles.ingredients__tabs}>
-      <div>
-        <Tab value="bun" active={current === "bun"} onClick={setCurrent}>
-          Булки
-        </Tab>
+        <div>
+          <Tab value="bun" active={current === "bun"} onClick={setCurrent}>
+            Булки
+          </Tab>
         </div>
         <Tab value="sauce" active={current === "sauce"} onClick={setCurrent}>
           Соусы
@@ -32,16 +33,16 @@ const BurgerIngredients = ({ action }) => {
         </Tab>
       </nav>
       <div className={IngredientStyles.ingredients__list}>
-      <IngredientList data={bun} action={action} title="Булки" />
-      <IngredientList data={sauce} action={action} title="Соусы" />
-      <IngredientList data={main} action={action} title="Начинки" />
+        <IngredientList data={bun} action={action} title="Булки" />
+        <IngredientList data={sauce} action={action} title="Соусы" />
+        <IngredientList data={main} action={action} title="Начинки" />
       </div>
     </div>
   );
 };
 
 BurgerIngredients.propTypes = {
-  action: PropTypes.func.isRequired
+  action: PropTypes.func.isRequired,
 };
 
 export default BurgerIngredients;

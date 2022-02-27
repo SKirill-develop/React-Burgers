@@ -21,6 +21,7 @@ const OrderDetails = ({orderNumber}) => {
     </div>
   );
 }
+
 OrderDetails.propTypes = {
   orderNumber: PropTypes.number.isRequired,
 };
