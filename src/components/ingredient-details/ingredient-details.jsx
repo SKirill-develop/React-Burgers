@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 
 const IngredientDetails = ({ currentIngredientId }) => {
   const ingredients = useSelector(
-    (state) => state.ingredientsReducer.ingredients
+    (state) => state.ingredients.data
   );
 
   const ingredient = ingredients.filter(

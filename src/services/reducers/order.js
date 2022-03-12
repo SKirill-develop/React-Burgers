@@ -1,25 +1,26 @@
-import {
-  GET_INGREDIENTS_REQUEST,
-  GET_INGREDIENTS_SUCCESS,
-  GET_INGREDIENTS_FAILED,
-} from '../actions/ingredients';
+import { 
+  CREATE_ORDER_REQUEST,
+  CREATE_ORDER_SUCCESS,
+  CREATE_ORDER_FAILED,
+  RESET_ORDER
+} from '../actions/order';
 
 const initialState = {
-  data: [],
+  data: null,
   isLoading: false,
   error: null,
-};
+}
 
-export const ingredientsReducer = (state = initialState, action) => {
+export const orderReducer = (state = initialState, action) => {
   switch (action.type) {
-    case GET_INGREDIENTS_REQUEST: {
+    case CREATE_ORDER_REQUEST: {
       return {
         ...state,
         isLoading: true,
         error: null,
       }
     }
-    case GET_INGREDIENTS_SUCCESS: {
+    case CREATE_ORDER_SUCCESS: {
       return {
         ...state,
         data: action.payload,
@@ -27,14 +28,15 @@ export const ingredientsReducer = (state = initialState, action) => {
         error: null,
       }
     }
-    case GET_INGREDIENTS_FAILED: {
+    case CREATE_ORDER_FAILED: {
       return {
         ...state,
+        data: null,
         isLoading: false,
         error: true,
       }
     }
-    default:
+    default: 
       return state;
   }
 }

@@ -1,39 +1,44 @@
-import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import IngredientStyles from "../burger-ingredients/burger-ingredients.module.css";
+import { forwardRef, useMemo }   from "react";
+import { useSelector } from "react-redux";
+
+import styles from "./ingredient-list.module.css";
+import { BurgerIngredient } from "../burger-ingredient/burger-ingredient"
 import PropTypes from "prop-types";
 import ingredientPropTypes from "../../utils/interfaces";
 
-const IngredientList = ({ data, title, action }) => {
+const IngredientList = forwardRef(({ data, title, action, id }, ref) => {
+
+  const burgerConstructor = useSelector(state => state.burgerConstructor)
+
+  const ingredientCounters = useMemo(() => {
+    const { bun, ingredients } = burgerConstructor;
+    const counters = {};
+    ingredients.forEach(ingredient => {
+      if (!counters[ingredient._id]) counters[ingredient._id] = 0;
+      counters[ingredient._id]++;
+    });
+    if (bun) counters[bun._id] = 2;
+    return counters;
+  }, [burgerConstructor])
+
   return (
-    <>
-      <p
-        className={
-          IngredientStyles.title + " text text_type_main-medium mt-10 mb-6"
-        }
-      >
+    <div id={id} >
+      <p className={styles.title + " text text_type_main-medium mt-10 mb-6"}>
         {title}
       </p>
-      <ul className={IngredientStyles.ingredient__list}>
+      <ul className={styles.ingredient__list} ref={ref}>
         {data.map((item) => (
-          <li
-            key={item._id}
-            className={IngredientStyles.ingredients__item}
-            onClick={() => action(item._id)}
-          >
-            <img src={item.image} alt={item.name} />
-            <div className={IngredientStyles.contain + " mt-2 mb-2"}>
-              <p className="text text_type_digits-default pr-2">
-                {item.price}{" "}
-              </p>
-              <CurrencyIcon type="primary" />
-            </div>
-            <p className="text text_type_main-default">{item.name}</p>
-          </li>
+          <BurgerIngredient 
+          key={item._id}
+          ingredient={item} 
+          action={action} 
+          count={ingredientCounters[item._id]}
+          />
         ))}
       </ul>
-    </>
+    </div>
   );
-};
+});
 
 IngredientList.propTypes = {
   data: PropTypes.arrayOf(ingredientPropTypes).isRequired,

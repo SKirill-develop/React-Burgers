@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useEffect, useMemo } from "react";
+import { useInView } from "react-intersection-observer";
 import IngredientList from "../ingridient-list/ingredient-list";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import IngredientStyles from "./burger-ingredients.module.css";
@@ -6,38 +7,77 @@ import PropTypes from "prop-types";
 import { useSelector } from "react-redux";
 
 const BurgerIngredients = ({ action }) => {
-  const data = useSelector((state) => state.ingredientsReducer.ingredients);
+  const data = useSelector((state) => state.ingredients.data);
+  const [currentTab, setCurrentTab] = useState("buns");
 
-  const [current, setCurrent] = useState("bun");
+  const bun = useMemo(
+    () => data.filter((el) => el.type === "bun"),
+    [data]
+  );
+  
+  const sauce = useMemo(
+    () => data.filter((el) => el.type === "sauce"),
+    [data]
+  );
+  
+  const main = useMemo(
+    () => data.filter((el) => el.type === "main"),
+    [data]
+  );
+  
+  const [bunsRef, inViewBuns] = useInView({
+    threshold: 0,
+  });
 
-  const bun = data.filter((el) => el.type === "bun");
-  const sauce = data.filter((el) => el.type === "sauce");
-  const main = data.filter((el) => el.type === "main");
+  const [saucesRef, inViewSauces] = useInView({
+    threshold: 0,
+  });
+
+  const [mainsRef, inViewFilling] = useInView({
+    threshold: 0,
+  });
+
+  useEffect(() => {
+    if (inViewBuns) {
+      setCurrentTab("buns")
+    } else if (inViewSauces){
+      setCurrentTab("sauces")
+    }
+    else if (inViewFilling){
+      setCurrentTab("mains")
+    }
+  },[inViewBuns, inViewSauces, inViewFilling])
+
+  const onTabClick = (tab) => {
+    setCurrentTab(tab);
+    const element = document.getElementById(tab);
+    if (element) {
+      element.scrollIntoView({behavior: "smooth"})
+    }
+  }
 
   return (
-    <div className={IngredientStyles.ingredients}>
+    <section className={IngredientStyles.ingredients}>
       <p className={IngredientStyles.title + " text text_type_main-large"}>
         Соберите бургер
       </p>
       <nav className={IngredientStyles.ingredients__tabs}>
-        <div>
-          <Tab value="bun" active={current === "bun"} onClick={setCurrent}>
-            Булки
-          </Tab>
-        </div>
-        <Tab value="sauce" active={current === "sauce"} onClick={setCurrent}>
+        <Tab value="buns" active={currentTab === "buns"} onClick={onTabClick}>
+          Булки
+        </Tab>
+        <Tab value="sauces" active={currentTab === "sauces"} onClick={onTabClick}>
           Соусы
         </Tab>
-        <Tab value="main" active={current === "main"} onClick={setCurrent}>
+        <Tab value="mains" active={currentTab === "mains"} onClick={onTabClick}>
           Начинки
         </Tab>
       </nav>
       <div className={IngredientStyles.ingredients__list}>
-        <IngredientList data={bun} action={action} title="Булки" />
-        <IngredientList data={sauce} action={action} title="Соусы" />
-        <IngredientList data={main} action={action} title="Начинки" />
+        <IngredientList id="buns" data={bun} action={action} title="Булки" ref={bunsRef}/>
+        <IngredientList id="sauces" data={sauce} action={action} title="Соусы" ref={saucesRef}/>
+        <IngredientList id="mains" data={main} action={action} title="Начинки" ref={mainsRef}/>
       </div>
-    </div>
+    </section>
   );
 };
 
