@@ -1,4 +1,5 @@
 import { url } from "./constants";
+import { checkRes } from "../services/actions/ingredients"
 
 export const orderBurger = (orderData) => {
   return fetch(`${url}/orders`, {
@@ -10,6 +11,5 @@ export const orderBurger = (orderData) => {
       ingredients: orderData,
     }),
   })
-    .then((res) => res.json())
-
+  .then(checkRes)
 }

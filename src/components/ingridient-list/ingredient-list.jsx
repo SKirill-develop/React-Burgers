@@ -40,6 +40,7 @@ const IngredientList = forwardRef(({ data, title, id }, ref) => {
 IngredientList.propTypes = {
   data: PropTypes.arrayOf(ingredientPropTypes).isRequired,
   title: PropTypes.string,
+  id: PropTypes.string,
 };
 
 export default IngredientList;

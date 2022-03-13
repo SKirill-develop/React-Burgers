@@ -3,15 +3,19 @@ import { useSelector, useDispatch } from "react-redux";
 import style from "./burger-constructor.module.css";
 import Modal from "../modal/modal";
 import OrderDetails from "../order-details/order-details";
-import { addToConstructor } from "../../services/actions/constructor";
-import { BurgerConstructorElement } from "../burger-constructor-element/burger-constructor-element"
+import {
+  addToConstructor,
+  NEW_INGREDIENT,
+  CONSTRUCTOR_RESET,
+} from "../../services/actions/constructor";
+import { BurgerConstructorElement } from "../burger-constructor-element/burger-constructor-element";
 import { useDrop } from "react-dnd";
 import {
   ConstructorElement,
   CurrencyIcon,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { RESET_ORDER , orderBurger} from "../../services/actions/order";
+import { RESET_ORDER, orderBurger } from "../../services/actions/order";
 
 const BurgerConstructor = () => {
   const dispatch = useDispatch();
@@ -20,7 +24,7 @@ const BurgerConstructor = () => {
   const orderModalData = useSelector((state) => state.order.data);
 
   const [, drop] = useDrop(() => ({
-    accept: "NEW_INGREDIENT",
+    accept: NEW_INGREDIENT,
     drop: (item) => dispatch(addToConstructor(item)),
     collect: (monitor) => ({
       canDrop: monitor.canDrop(),
@@ -28,7 +32,6 @@ const BurgerConstructor = () => {
       isOver: monitor.isOver(),
     }),
   }));
-
 
   const onOrderClick = () => {
     if (!constructorItems.bun || orderRequest) {
@@ -41,16 +44,18 @@ const BurgerConstructor = () => {
         ...constructorItems.ingredients.map((el) => el._id),
         constructorItems.bun._id,
       ])
-    )
+    );
   };
 
-  const closeOrderModal = () => dispatch({ type: RESET_ORDER });
-
+  const closeOrderModal = () => {
+    dispatch({ type: RESET_ORDER });
+    dispatch({ type: CONSTRUCTOR_RESET });
+  };
   const price = useMemo(() => {
     return (
       (constructorItems.bun ? constructorItems.bun.price * 2 : 0) +
       constructorItems.ingredients.reduce((sum, el) => sum + el.price, 0)
-    )
+    );
   }, [constructorItems]);
 
   return (
@@ -67,7 +72,7 @@ const BurgerConstructor = () => {
             />
           </div>
         ) : (
-          <div>Выберите булку</div>
+          <p className="text text_type_main-medium">Выберите булку</p>
         )}
         <ul className={style.elements}>
           {constructorItems.ingredients.length > 0 ? (
@@ -81,7 +86,7 @@ const BurgerConstructor = () => {
               );
             })
           ) : (
-            <div>Выберите начинку</div>
+            <p className="text text_type_main-medium">Выберите начинку</p>
           )}
         </ul>
 
@@ -96,7 +101,7 @@ const BurgerConstructor = () => {
             />
           </div>
         ) : (
-          <div>Выберите булку</div>
+          <p className="text text_type_main-medium">Выберите булку</p>
         )}
       </div>
       <div className={style.info + " mt-10 mr-4"}>
