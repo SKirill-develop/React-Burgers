@@ -19,7 +19,7 @@ const BurgerConstructor = () => {
   const orderRequest = useSelector((state) => state.order.isLoading);
   const orderModalData = useSelector((state) => state.order.data);
 
-  const [{ canDrop, dragItem }, drop] = useDrop(() => ({
+  const [, drop] = useDrop(() => ({
     accept: "NEW_INGREDIENT",
     drop: (item) => dispatch(addToConstructor(item)),
     collect: (monitor) => ({
@@ -29,8 +29,6 @@ const BurgerConstructor = () => {
     }),
   }));
 
-  const dragBuns = canDrop && dragItem && dragItem.type === "bun";
-  const dragIngredients = canDrop && dragItem && dragItem.type !== "bun";
 
   const onOrderClick = () => {
     if (!constructorItems.bun || orderRequest) {

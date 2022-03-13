@@ -1,7 +1,10 @@
 import { useRef } from "react";
 import { useDispatch } from "react-redux";
 import { useDrop, useDrag } from "react-dnd";
-import { CONSTRUCTOR_REORDER, CONSTRUCTOR_DELETE } from "../../services/actions/constructor";
+import {
+  CONSTRUCTOR_REORDER,
+  CONSTRUCTOR_DELETE,
+} from "../../services/actions/constructor";
 import {
   DragIcon,
   ConstructorElement,
@@ -20,11 +23,12 @@ export const BurgerConstructorElement = ({ ingredient, index }) => {
     hover(item, monitor) {
       const dragIndex = item.index;
       const hoverIndex = index;
-      if ( dragIndex === hoverIndex ) {
+      if (dragIndex === hoverIndex) {
         return;
       }
       const hoverBoundingRect = ref.current?.getBoundingClientRect();
-      const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
+      const hoverMiddleY =
+        (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
       const clientOffset = monitor.getClientOffset();
       const hoverClientY = clientOffset.y - hoverBoundingRect.top;
       if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
@@ -33,7 +37,7 @@ export const BurgerConstructorElement = ({ ingredient, index }) => {
       if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
         return;
       }
-      dispatch({ 
+      dispatch({
         type: CONSTRUCTOR_REORDER,
         payload: {
           from: dragIndex,
@@ -43,39 +47,34 @@ export const BurgerConstructorElement = ({ ingredient, index }) => {
       item.index = hoverIndex;
     },
   });
-  const [{ isDragging }, drag] = useDrag({
+  const [, drag] = useDrag({
     type: "SORT_INGREDIENT",
     item: () => {
       return { ingredient, index };
     },
-    collect: (monitor) => ({
-      isDragging: monitor.isDragging(),
-    }),
   });
-  const opacity = isDragging ? 0 : 1;
-  drag(drop(ref))
 
-  return(
-    <li 
-      key={ingredient.id} 
-      className="m-4" 
+  drag(drop(ref));
+
+  return (
+    <li
+      key={ingredient.id}
+      className="m-4"
       ref={ref}
       data-handler-id={handlerId}
-      >
-
+    >
       <DragIcon type="primary" />
       <ConstructorElement
         text={ingredient.name}
         price={ingredient.price}
         thumbnail={ingredient.image}
         handleClose={() =>
-          dispatch({ 
+          dispatch({
             type: CONSTRUCTOR_DELETE,
             payload: index,
           })
         }
       />
     </li>
-  )
-
-}
+  );
+};

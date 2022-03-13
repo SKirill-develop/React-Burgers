@@ -3,28 +3,18 @@ import { useInView } from "react-intersection-observer";
 import IngredientList from "../ingridient-list/ingredient-list";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import IngredientStyles from "./burger-ingredients.module.css";
-import PropTypes from "prop-types";
 import { useSelector } from "react-redux";
 
-const BurgerIngredients = ({ action }) => {
+const BurgerIngredients = () => {
   const data = useSelector((state) => state.ingredients.data);
   const [currentTab, setCurrentTab] = useState("buns");
 
-  const bun = useMemo(
-    () => data.filter((el) => el.type === "bun"),
-    [data]
-  );
-  
-  const sauce = useMemo(
-    () => data.filter((el) => el.type === "sauce"),
-    [data]
-  );
-  
-  const main = useMemo(
-    () => data.filter((el) => el.type === "main"),
-    [data]
-  );
-  
+  const bun = useMemo(() => data.filter((el) => el.type === "bun"), [data]);
+
+  const sauce = useMemo(() => data.filter((el) => el.type === "sauce"), [data]);
+
+  const main = useMemo(() => data.filter((el) => el.type === "main"), [data]);
+
   const [bunsRef, inViewBuns] = useInView({
     threshold: 0,
   });
@@ -39,22 +29,21 @@ const BurgerIngredients = ({ action }) => {
 
   useEffect(() => {
     if (inViewBuns) {
-      setCurrentTab("buns")
-    } else if (inViewSauces){
-      setCurrentTab("sauces")
+      setCurrentTab("buns");
+    } else if (inViewSauces) {
+      setCurrentTab("sauces");
+    } else if (inViewFilling) {
+      setCurrentTab("mains");
     }
-    else if (inViewFilling){
-      setCurrentTab("mains")
-    }
-  },[inViewBuns, inViewSauces, inViewFilling])
+  }, [inViewBuns, inViewSauces, inViewFilling]);
 
   const onTabClick = (tab) => {
     setCurrentTab(tab);
     const element = document.getElementById(tab);
     if (element) {
-      element.scrollIntoView({behavior: "smooth"})
+      element.scrollIntoView({ behavior: "smooth" });
     }
-  }
+  };
 
   return (
     <section className={IngredientStyles.ingredients}>
@@ -65,7 +54,11 @@ const BurgerIngredients = ({ action }) => {
         <Tab value="buns" active={currentTab === "buns"} onClick={onTabClick}>
           Булки
         </Tab>
-        <Tab value="sauces" active={currentTab === "sauces"} onClick={onTabClick}>
+        <Tab
+          value="sauces"
+          active={currentTab === "sauces"}
+          onClick={onTabClick}
+        >
           Соусы
         </Tab>
         <Tab value="mains" active={currentTab === "mains"} onClick={onTabClick}>
@@ -73,16 +66,17 @@ const BurgerIngredients = ({ action }) => {
         </Tab>
       </nav>
       <div className={IngredientStyles.ingredients__list}>
-        <IngredientList id="buns" data={bun} action={action} title="Булки" ref={bunsRef}/>
-        <IngredientList id="sauces" data={sauce} action={action} title="Соусы" ref={saucesRef}/>
-        <IngredientList id="mains" data={main} action={action} title="Начинки" ref={mainsRef}/>
+        <IngredientList id="buns" data={bun} title="Булки" ref={bunsRef} />
+        <IngredientList
+          id="sauces"
+          data={sauce}
+          title="Соусы"
+          ref={saucesRef}
+        />
+        <IngredientList id="mains" data={main} title="Начинки" ref={mainsRef} />
       </div>
     </section>
   );
-};
-
-BurgerIngredients.propTypes = {
-  action: PropTypes.func.isRequired,
 };
 
 export default BurgerIngredients;

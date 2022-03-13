@@ -1,73 +1,49 @@
-import PropTypes from "prop-types";
-import { useContext } from "react";
-import detailsStyles from "./ingredient-details.module.css";
+import styles from "./ingredient-details.module.css";
 import { useSelector } from "react-redux";
 
-const IngredientDetails = ({ currentIngredientId }) => {
-  const ingredients = useSelector(
-    (state) => state.ingredients.data
-  );
+const IngredientDetails = () => {
+  const ingredient = useSelector((state) => state.ingredientsDetailModal.data);
 
-  const ingredient = ingredients.filter(
-    (item) => item._id === currentIngredientId
-  );
   return (
-    <>
-      {ingredient.map((item) => {
-        return (
-          <div
-            className={detailsStyles.content + " pb-15 pr-10 pl-10"}
-            key={item._id}
-          >
-            <img
-              src={item.image}
-              alt={item.name}
-              className={detailsStyles.image + " mb-4"}
-            />
-            <p className="text text_type_main-medium mb-8">{item.name}</p>
-            <ul className={detailsStyles.list}>
-              <li
-                className={
-                  detailsStyles.text +
-                  " text text_type_main-default text_color_inactive"
-                }
-              >
-                Калории,ккал <span>{item.calories}</span>
-              </li>
-              <li
-                className={
-                  detailsStyles.text +
-                  " text text_type_main-default text_color_inactive"
-                }
-              >
-                Белки, г <span>{item.proteins}</span>
-              </li>
-              <li
-                className={
-                  detailsStyles.text +
-                  " text text_type_main-default text_color_inactive"
-                }
-              >
-                Жиры, г <span>{item.fat}</span>
-              </li>
-              <li
-                className={
-                  detailsStyles.text +
-                  " text text_type_main-default text_color_inactive"
-                }
-              >
-                Углеводы, г <span>{item.carbohydrates}</span>
-              </li>
-            </ul>
-          </div>
-        );
-      })}
-    </>
+    <div className={styles.content + " pb-15 pr-10 pl-10"} key={ingredient._id}>
+      <img
+        src={ingredient.image}
+        alt={ingredient.name}
+        className={styles.image + " mb-4"}
+      />
+      <p className="text text_type_main-medium mb-8">{ingredient.name}</p>
+      <ul className={styles.list}>
+        <li
+          className={
+            styles.text + " text text_type_main-default text_color_inactive"
+          }
+        >
+          Калории,ккал <span>{ingredient.calories}</span>
+        </li>
+        <li
+          className={
+            styles.text + " text text_type_main-default text_color_inactive"
+          }
+        >
+          Белки, г <span>{ingredient.proteins}</span>
+        </li>
+        <li
+          className={
+            styles.text + " text text_type_main-default text_color_inactive"
+          }
+        >
+          Жиры, г <span>{ingredient.fat}</span>
+        </li>
+        <li
+          className={
+            styles.text + " text text_type_main-default text_color_inactive"
+          }
+        >
+          Углеводы, г <span>{ingredient.carbohydrates}</span>
+        </li>
+      </ul>
+    </div>
   );
-};
-
-IngredientDetails.propTypes = {
-  currentIngredientId: PropTypes.string.isRequired,
 };
 
 export default IngredientDetails;
