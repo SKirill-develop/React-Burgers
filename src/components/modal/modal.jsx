@@ -13,7 +13,7 @@ const Modal = ({ title, onClose, children }) => {
       if (e.key === "Escape" || e.key === "Esc") {
         onClose();
       }
-    }
+    };
     document.addEventListener("keyup", closeEsc);
 
     return () => {
@@ -23,7 +23,7 @@ const Modal = ({ title, onClose, children }) => {
 
   return ReactDOM.createPortal(
     <>
-      <ModalOverlay closed={onClose}/>
+      <ModalOverlay closed={onClose} />
       <div className={modalStyles.modal}>
         <span className={modalStyles.close}>
           <CloseIcon type="primary" onClick={onClose} />
