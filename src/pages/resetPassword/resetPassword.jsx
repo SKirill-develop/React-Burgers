@@ -1,8 +1,8 @@
-import { ForgotPasswordForm } from '../../components/forgotPasswordForm/forgotPasswordForm';
+import { ResetPasswordForm } from '../../components/resetPasswordForm/resetPasswordForm';
 
-export const ForgotPassword = () => {
+export const ResetPassword = () => {
 
   return (
-    <ForgotPasswordForm />
+    <ResetPasswordForm />
   );
 };
