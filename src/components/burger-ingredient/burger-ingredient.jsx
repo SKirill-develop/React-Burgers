@@ -1,22 +1,14 @@
 import styles from "./burger-ingredient.module.css";
 import { useDrag } from "react-dnd";
-import { useDispatch, useSelector } from "react-redux";
-import { RESET_INGREDIENT_MODAL, SET_INGREDIENT_MODAL } from "../../services/actions/ingredient-detail-modal";
+import { Link, useLocation } from 'react-router-dom';
 import { NEW_INGREDIENT } from "../../services/actions/constructor";
-import Modal from "../modal/modal";
-import IngredientDetails from "../ingredient-details/ingredient-details";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Counter } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/counter";
 import ingredientPropTypes from "../../utils/interfaces";
 import PropTypes from "prop-types";
 
 export const BurgerIngredient = ({ingredient, count}, ref) => {
-  const dispatch = useDispatch();
-  const ingredientsDetails = useSelector((state) => state.ingredientsDetailModal.data);
-
-  const closeIngredientModal = () => {
-    dispatch({ type: RESET_INGREDIENT_MODAL})
-  }
+  const location = useLocation();
 
   const [, drag] = useDrag(() => ({
     type: NEW_INGREDIENT,
@@ -28,10 +20,13 @@ export const BurgerIngredient = ({ingredient, count}, ref) => {
       <li
       className={styles.ingredients__item}
       ref={drag}
-      onClick={() => dispatch({
-        type: SET_INGREDIENT_MODAL,
-        ingredient: ingredient,
-      })}
+      >
+      <Link
+      className={styles.ingredients__link}
+        to={{
+          pathname: `/ingredients/${ingredient._id}`,
+          state: { background: location },
+        }}
       >
       {count > 0 && <Counter count={count} size={"default"} />}
       <img src={ingredient.image} alt={ingredient.name} />
@@ -42,12 +37,8 @@ export const BurgerIngredient = ({ingredient, count}, ref) => {
         <CurrencyIcon type="primary" />
       </div>
       <p className="text text_type_main-default">{ingredient.name}</p>
+      </Link>
       </li>
-      {ingredientsDetails && (
-        <Modal onClose={closeIngredientModal} title="Детали ингредиента">
-          <IngredientDetails />
-        </Modal>
-      )}
     </>
   )
 }

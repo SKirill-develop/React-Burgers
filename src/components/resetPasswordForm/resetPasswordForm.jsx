@@ -28,7 +28,7 @@ export const ResetPasswordForm = () => {
     <form onChange={handleChangeForm} className={styles.resetPasswordForm}>
       <h1 className={`text text_type_main-medium ${styles.resetPasswordForm__header}`}>Восстановление пароля</h1>
       <div className="p-3" />
-      <PasswordInput name="password" value={password} onChange={handleChangePassword} />
+      <PasswordInput name="password" value={password} onChange={handleChangePassword} autocomplete="on" />
       <div className="p-3" />
       <Input type="text" placeholder="Введите код из письма" name="code" value={token} onChange={handleChangeToken} />
       <div className="p-3" />

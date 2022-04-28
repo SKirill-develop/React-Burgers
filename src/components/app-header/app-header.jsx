@@ -34,7 +34,7 @@ const AppHeader = () => {
         <a href="/" className={styles.header__link}>
           <Logo />
         </a>
-        <NavLink to="/login" className={styles.header__profile} >
+        <NavLink to="/profile" className={styles.header__profile} >
           <ProfileIcon type={onProfilePage ? 'primary' : 'secondary'} />
           <p className="text text_type_main-default text_color_inactive">
             Личный кабинет
