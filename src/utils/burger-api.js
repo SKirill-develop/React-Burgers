@@ -95,3 +95,43 @@ export const updateUserApi = (name, email, password) => {
   })
     .then(checkRes);
 }
+
+export const resetPasswordApi = (email) => {
+  return fetch(`${url}/password-reset`, {
+    method: 'POST',
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      email,
+    }),
+  })
+    .then(checkRes);
+}
+
+export const setNewPasswordApi = (password, token) => {
+  return fetch(`${url}/password-reset/reset/`, {
+    method: 'POST',
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      password,
+      token,
+    }),
+  })
+    .then(checkRes);
+}
+
+export const resetRefreshTokenApi = () => {
+  return fetch(`${url}/auth/token`, {
+    method: 'POST',
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      token: `${localStorage.getItem('refreshToken')}`,
+    }),
+  })
+    .then(checkRes);
+}

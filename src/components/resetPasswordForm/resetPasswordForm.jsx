@@ -1,9 +1,12 @@
 import { Button, Input, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useState, useCallback}  from 'react';
+import { Link, useHistory } from 'react-router-dom';
+import { setNewPassword } from '../../services/actions/auth';
+
 import styles from './resetPasswordForm.module.css';
 
 export const ResetPasswordForm = () => {
+  const history = useHistory();
 
   const [password, setPassword] = useState('');
   const [token, setToken] = useState('');
@@ -23,6 +26,18 @@ export const ResetPasswordForm = () => {
     setFormValid(isValid);
   };
 
+  const handleSetNewPassword = useCallback(
+    (event) => {
+      event.preventDefault();
+
+      setNewPassword(password, token);
+      setPassword('');
+      setToken('');
+      setFormValid(false);
+      history.push('/login');
+    },
+    [ password, token, history],
+  );
 
   return (
     <form onChange={handleChangeForm} className={styles.resetPasswordForm}>
@@ -32,7 +47,7 @@ export const ResetPasswordForm = () => {
       <div className="p-3" />
       <Input type="text" placeholder="Введите код из письма" name="code" value={token} onChange={handleChangeToken} />
       <div className="p-3" />
-      <Button disabled={!isFormValid}  type="primary" size="medium">
+      <Button disabled={!isFormValid} onClick={handleSetNewPassword} type="primary" size="medium">
         Сохранить
       </Button>
       <div className="p-10" />
