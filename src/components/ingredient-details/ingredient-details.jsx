@@ -1,10 +1,19 @@
 import styles from "./ingredient-details.module.css";
 import { useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
+import { Loader } from "../../components/loader/loader";
+
 
 const IngredientDetails = () => {
-  const ingredient = useSelector((state) => state.ingredientsDetailModal.data);
+  const router = useParams();
+
+  const ingredientId = router.id;
+  const ingredients = useSelector((store) => store.ingredients.data);
+  const ingredient = ingredients.find((el) => el._id === ingredientId);
 
   return (
+    <>
+    {ingredient ? (
     <div className={styles.content + " pb-15 pr-10 pl-10"} key={ingredient._id}>
       <img
         src={ingredient.image}
@@ -43,7 +52,10 @@ const IngredientDetails = () => {
         </li>
       </ul>
     </div>
-  );
+    ) : (<Loader />)
+    }
+    </>
+  )
 };
 
 export default IngredientDetails;

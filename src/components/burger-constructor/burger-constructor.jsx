@@ -1,5 +1,6 @@
 import { useMemo } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { useHistory } from 'react-router-dom';
 import style from "./burger-constructor.module.css";
 import Modal from "../modal/modal";
 import OrderDetails from "../order-details/order-details";
@@ -19,6 +20,9 @@ import { RESET_ORDER, orderBurger } from "../../services/actions/order";
 
 const BurgerConstructor = () => {
   const dispatch = useDispatch();
+  const history = useHistory();
+
+  const isAuth = useSelector((store) => store.isAuth);
   const constructorItems = useSelector((state) => state.burgerConstructor);
   const orderRequest = useSelector((state) => state.order.isLoading);
   const orderModalData = useSelector((state) => state.order.data);
@@ -34,6 +38,7 @@ const BurgerConstructor = () => {
   }));
 
   const onOrderClick = () => {
+    if (isAuth) {
     if (!constructorItems.bun || orderRequest) {
       return;
     }
@@ -45,6 +50,9 @@ const BurgerConstructor = () => {
         constructorItems.bun._id,
       ])
     );
+    } else {
+      history.push('/login');
+    }
   };
 
   const closeOrderModal = () => {

@@ -1,0 +1,25 @@
+.profileNav__nav {
+  max-width: 320px;
+}
+
+.profileNav__links {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.profileNav__link {
+  text-decoration: none;
+  line-height: 54px;
+}
+
+.profileNav__link_active {
+  color: #F2F2F3;
+}
+
+.profileNav__logoutButton {
+  min-height: 54px;
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+}

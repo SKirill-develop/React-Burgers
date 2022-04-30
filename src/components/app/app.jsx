@@ -1,35 +1,52 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import AppHeader from "../app-header/app-header";
-import BurgerIngredients from "../burger-ingredients/burger-ingredients";
-import BurgerConstructor from "../burger-constructor/burger-constructor";
-import appStyles from "./app.module.css";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { Switch, Route, useLocation } from "react-router-dom";
 import { getIngredients } from "../../services/actions/ingredients";
-import { DndProvider } from "react-dnd";
-import { HTML5Backend } from "react-dnd-html5-backend";
+import { Home } from "../../pages/home/home";
+import { Login } from "../../pages/login/login";
+import { Register } from "../../pages/register/register";
+import { Page404 } from "../../pages/page404/page404";
+import { ForgotPassword } from "../../pages/forgotPassword/forgotPassword";
+import { ResetPassword } from "../../pages/resetPassword/resetPassword";
+import { Profile } from "../../pages/profile/profile";
+import { ProtectedRoute } from "../protectedRoute/protectedRoute";
+import { getUser } from "../../services/actions/auth";
+import IngredientDetails from "../ingredient-details/ingredient-details";
+import Modal from "../modal/modal";
 
 const App = () => {
   const dispatch = useDispatch();
-  const isLoading = useSelector((state) => state.ingredients.isLoading);
+  const location = useLocation();
+  const background = location.state && location.state.background;
 
   useEffect(() => {
     dispatch(getIngredients());
+    dispatch(getUser());
   }, [dispatch]);
 
   return (
     <>
-      {isLoading ? (
-        <h1>Loading...</h1>
-      ) : (
-        <>
-          <AppHeader />
-          <DndProvider backend={HTML5Backend}>
-            <div className={appStyles.app__container}>
-              <BurgerIngredients />
-              <BurgerConstructor />
-            </div>
-          </DndProvider>
-        </>
+      <AppHeader />
+      <Switch location={background || location}>
+        <Route exact path="/" component={Home} />
+        <Route exact path="/login" component={Login} />
+        <Route exact path="/register" component={Register} />
+        <Route exact path="/forgot-password" component={ForgotPassword} />
+        <Route exact path="/reset-password" component={ResetPassword} />
+        <Route exact path="/ingredients/:id">
+          <IngredientDetails />
+        </Route>
+        <ProtectedRoute path="/profile" component={Profile} />
+        <ProtectedRoute path="/profile/orders" component={Profile} />
+        <Route component={Page404} />
+      </Switch>
+      {background && (
+        <Route exact path="/ingredients/:id">
+          <Modal title="Детали ингредиента">
+            <IngredientDetails />
+          </Modal>
+        </Route>
       )}
     </>
   );
