@@ -1,4 +1,3 @@
-import { setLoading } from '../actions/loading';
 import { SET_WS_ORDERS } from '../actions/webSockets';
 
 export const socketMiddleware = (wsUrl, wsActions) => (store) => {
