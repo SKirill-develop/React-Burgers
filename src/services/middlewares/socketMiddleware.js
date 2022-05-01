@@ -16,7 +16,6 @@ export const socketMiddleware = (wsUrl, wsActions) => (store) => {
     }
 
     if (type === wsInit) {
-      dispatch(setLoading(true));
       socket = new WebSocket(wsUrl);
     }
 
@@ -32,9 +31,7 @@ export const socketMiddleware = (wsUrl, wsActions) => (store) => {
       socket.onmessage = (event) => {
         const { data } = event;
         const parsedData = JSON.parse(data);
-        const { success, ...restParsedData } = parsedData;
-        dispatch({ type: SET_WS_ORDERS, payload: restParsedData });
-        dispatch(setLoading(false));
+        dispatch({ type: SET_WS_ORDERS, payload: parsedData });
       };
 
       socket.onclose = (event) => {

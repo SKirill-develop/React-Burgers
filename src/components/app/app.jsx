@@ -17,6 +17,7 @@ import { getUser } from "../../services/actions/auth";
 import { FeedOrderDetails } from "../feedOrderDetails/feedOrderDetails";
 import IngredientDetails from "../ingredient-details/ingredient-details";
 import Modal from "../modal/modal";
+import styles from './app.module.css';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -38,10 +39,13 @@ const App = () => {
         <Route exact path="/forgot-password" component={ForgotPassword} />
         <Route exact path="/reset-password" component={ResetPassword} />
         <Route exact path="/ingredients/:id">
-          <IngredientDetails />
+          <div className={styles.app__ingredientDetails}>
+            <IngredientDetails />
+          </div>
         </Route>
         <Route exact path="/feed" component={Feed} />
         <Route exact path="/feed/:id" component={OrderDetails} />
+        <ProtectedRoute path="/profile/orders/:id" component={OrderDetails} />
         <ProtectedRoute path="/profile" component={Profile} />
         <ProtectedRoute path="/profile/orders" component={Profile} />
         <Route component={Page404} />

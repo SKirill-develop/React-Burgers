@@ -4,7 +4,7 @@ import {
   ListIcon,
   ProfileIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { NavLink, useRouteMatch } from "react-router-dom";
+import { NavLink, useRouteMatch, Link } from "react-router-dom";
 import styles from "./app-header.module.css";
 
 const AppHeader = () => {
@@ -31,9 +31,9 @@ const AppHeader = () => {
             </NavLink>
           </li>
         </ul>
-        <a href="/" className={styles.header__link}>
+        <Link to="/" className={styles.header__link}>
           <Logo />
-        </a>
+        </Link>
         <NavLink to="/profile" className={styles.header__profile} >
           <ProfileIcon type={onProfilePage ? 'primary' : 'secondary'} />
           <p className="text text_type_main-default text_color_inactive">
