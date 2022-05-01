@@ -25,6 +25,5 @@
 ## Cкрипты:
 - клонирование репозитория: `git clone`
 - запуск проекта: `npm start` (по умолчанию доступно на http://localhost:3000)
-- тестирование: `npm run test`
 - продакшн сборка: `npm run build`
 - публикация проекта на GitHub Pages: `npm run deploy`
