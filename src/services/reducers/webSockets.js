@@ -7,6 +7,7 @@ import {
   WS_CUSTOM_URL_CONNECTION_START,
   WS_GET_ORDERS,
   WS_SEND_MESSAGE,
+  SET_WS_ORDERS
 } from "../actions/webSockets.js";
 
 export const wsActions = {
@@ -16,6 +17,7 @@ export const wsActions = {
   onClose: WS_CONNECTION_CLOSED,
   onError: WS_CONNECTION_ERROR,
   wsSendMessage: WS_SEND_MESSAGE,
+  onMessage: SET_WS_ORDERS,
   onOrder: WS_GET_ORDERS,
   wsClose: WS_CLOSE_CONNECTION,
 };

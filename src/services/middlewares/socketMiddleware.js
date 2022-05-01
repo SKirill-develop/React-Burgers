@@ -1,5 +1,3 @@
-import { SET_WS_ORDERS } from '../actions/webSockets';
-
 export const socketMiddleware = (wsUrl, wsActions) => (store) => {
   let socket = null;
 
@@ -7,7 +5,7 @@ export const socketMiddleware = (wsUrl, wsActions) => (store) => {
     const { dispatch } = store;
     const { type, payload } = action;
     const {
-      wsInit, onOpen, onClose, wsClose, onError, wsCustomUrlInit,
+      wsInit, onOpen, onClose, wsClose, onError, wsCustomUrlInit, onMessage
     } = wsActions;
 
     if (type === wsCustomUrlInit) {
@@ -30,7 +28,7 @@ export const socketMiddleware = (wsUrl, wsActions) => (store) => {
       socket.onmessage = (event) => {
         const { data } = event;
         const parsedData = JSON.parse(data);
-        dispatch({ type: SET_WS_ORDERS, payload: parsedData });
+        dispatch({ type: onMessage, payload: parsedData });
       };
 
       socket.onclose = (event) => {
