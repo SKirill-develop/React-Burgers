@@ -3,6 +3,7 @@ import { Loader } from "../../components/loader/loader";
 import { useSelector, useDispatch } from "react-redux";
 import { OrdersList } from "../../components/ordersList/ordersList";
 import { wsClose, wsConnectionStart } from "../../services/actions/webSockets";
+import { setLoading } from '../../services/actions/loading';
 import styles from "./feed.module.css";
 
 export const Feed = () => {
@@ -22,7 +23,9 @@ export const Feed = () => {
   );
 
   useEffect(() => {
+    dispatch(setLoading(true));
     dispatch(wsConnectionStart());
+    dispatch(setLoading(false));
     return () => {
       dispatch(wsClose());
     };
