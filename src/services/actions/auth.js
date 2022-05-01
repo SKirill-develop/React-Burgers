@@ -8,6 +8,7 @@ import {
   setNewPasswordApi,
   resetRefreshTokenApi,
 } from "../../utils/burger-api";
+import { setLoading } from '../actions/loading';
 
 export const SET_USER_AUTH = "SET_USER_AUTH";
 export const SET_USER = "SET_USER";
@@ -47,6 +48,7 @@ const resetRefreshToken = (next) => {
 };
 
 export const register = (email, password, name) => (dispatch) => {
+  dispatch(setLoading(true));
   registerUser(email, password, name)
     .then((res) => {
       dispatch(setUserData(res.user));
@@ -54,10 +56,12 @@ export const register = (email, password, name) => (dispatch) => {
       localStorage.setItem("accessToken", res.accessToken);
       localStorage.setItem("refreshToken", res.refreshToken);
     })
-    .catch((error) => console.log(`ERROR: ${error}`));
+    .catch((error) => console.log(`ERROR: ${error}`))
+    .finally(() => dispatch(setLoading(false)));
 };
 
 export const login = (email, password) => (dispatch) => {
+  dispatch(setLoading(true));
   loginUser(email, password)
     .then((res) => {
       if (res.success) {
@@ -67,7 +71,8 @@ export const login = (email, password) => (dispatch) => {
         dispatch(setIsAuth(true));
       }
     })
-    .catch((error) => console.log(`ERROR: ${error}`));
+    .catch((error) => console.log(`ERROR: ${error}`))
+    .finally(() => dispatch(setLoading(false)));
 };
 
 export const logout = () => (dispatch) => {
@@ -86,6 +91,7 @@ export const logout = () => (dispatch) => {
 };
 
 export const getUser = () => (dispatch) => {
+  dispatch(setLoading(true));
   const token = localStorage.getItem("accessToken");
   token &&
     getUserApi()
@@ -103,7 +109,8 @@ export const getUser = () => (dispatch) => {
           console.log(`ERROR: ${error}`);
         }
         console.log(`ERROR: ${error}`);
-      });
+      })
+    .finally(() => dispatch(setLoading(false)));
 };
 
 export const updateUser = (data) => (dispatch) => {
@@ -121,14 +128,18 @@ export const updateUser = (data) => (dispatch) => {
     });
 };
 
-export const resetPassword = (email) => {
+export const resetPassword = (email) => (dispatch) =>  {
+  dispatch(setLoading(true));
   resetPasswordApi(email)
     .then((res) => console.log(res))
-    .catch((error) => console.log(`ERROR: ${error}`));
+    .catch((error) => console.log(`ERROR: ${error}`))
+    .finally(() => dispatch(setLoading(false)));
 };
 
-export const setNewPassword = (password, token) => {
+export const setNewPassword = (password, token) => (dispatch) => {
+  dispatch(setLoading(true));
   setNewPasswordApi(password, token)
     .then((res) => console.log(res))
-    .catch((error) => console.log(`ERROR: ${error}`));
+    .catch((error) => console.log(`ERROR: ${error}`))
+    .finally(() => dispatch(setLoading(false)));
 };
