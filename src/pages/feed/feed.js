@@ -3,7 +3,6 @@ import { Loader } from "../../components/loader/loader";
 import { useSelector, useDispatch } from "react-redux";
 import { OrdersList } from "../../components/ordersList/ordersList";
 import { wsClose, wsConnectionStart } from "../../services/actions/webSockets";
-import { setLoading } from '../../services/actions/loading';
 import styles from "./feed.module.css";
 
 export const Feed = () => {
