@@ -9,7 +9,6 @@ import styles from "./feed.module.css";
 export const Feed = () => {
   const dispatch = useDispatch();
   const orders = useSelector((store) => store.feedOrders?.orders);
-  const isLoading = useSelector((store) => store.isLoading);
   const totalOrders = useSelector((store) => store.feedOrders?.total);
   const todayOrders = useSelector((store) => store.feedOrders?.totalToday);
 
@@ -23,9 +22,7 @@ export const Feed = () => {
   );
 
   useEffect(() => {
-    dispatch(setLoading(true));
     dispatch(wsConnectionStart());
-    dispatch(setLoading(false));
     return () => {
       dispatch(wsClose());
     };
@@ -33,7 +30,7 @@ export const Feed = () => {
 
   return (
     <div className={styles.feed}>
-      {isLoading ? (
+      {!orders ? (
         <Loader />
       ) : (
         <>

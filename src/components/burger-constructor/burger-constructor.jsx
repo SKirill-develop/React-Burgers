@@ -67,9 +67,13 @@ const BurgerConstructor = () => {
   }, [constructorItems]);
 
   return (
-    <section className="mt-25" ref={drop}>
+    <section className={style.contain} ref={drop}>
+    {
+    constructorItems.bun || constructorItems.ingredients.length > 0
+    ?
       <div className="m-4">
-        {constructorItems.bun ? (
+        {
+          constructorItems.bun &&
           <div className="ml-20">
             <ConstructorElement
               type="top"
@@ -79,9 +83,8 @@ const BurgerConstructor = () => {
               thumbnail={constructorItems.bun.image}
             />
           </div>
-        ) : (
-          <p className="text text_type_main-medium">Выберите булку</p>
-        )}
+        }
+
         <ul className={style.elements}>
           {constructorItems.ingredients.length > 0 ? (
             constructorItems.ingredients.map((item, index) => {
@@ -94,11 +97,11 @@ const BurgerConstructor = () => {
               );
             })
           ) : (
-            <p className="text text_type_main-medium">Выберите начинку</p>
+            <div className={`${style.addMain} text text_type_main-medium text_color_inactive`}>Перетащите сюда начинку</div>
           )}
         </ul>
 
-        {constructorItems.bun ? (
+        {constructorItems.bun &&
           <div className="ml-20">
             <ConstructorElement
               type="bottom"
@@ -108,10 +111,14 @@ const BurgerConstructor = () => {
               thumbnail={constructorItems.bun.image}
             />
           </div>
-        ) : (
-          <p className="text text_type_main-medium">Выберите булку</p>
-        )}
+        }
       </div>
+      :
+          <div className={`${style.add} text text_type_main-medium text_color_inactive`}>Перетащите сюда булку</div>
+    }
+{
+  (constructorItems.bun && constructorItems.ingredients.length > 0) &&
+
       <div className={style.info + " mt-10 mr-4"}>
         <div className={style.price + " mr-10"}>
           <p className="text text_type_digits-medium m-2">{price}</p>
@@ -121,13 +128,15 @@ const BurgerConstructor = () => {
           <Button type="primary" size="medium" onClick={onOrderClick}>
             Оформить заказ
           </Button>
-          {orderModalData && (
+        </div>
+        </div>
+      }
+      {orderModalData && (
             <Modal onClose={closeOrderModal}>
               <OrderDetails orderNumber={orderModalData.order.number} />
             </Modal>
           )}
-        </div>
-      </div>
+      
     </section>
   );
 };
