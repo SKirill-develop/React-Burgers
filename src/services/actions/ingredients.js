@@ -1,10 +1,13 @@
 import { url } from '../../utils/constants';
+import { checkRes } from '../../utils/burger-api'
+import { setLoading } from '../actions/loading';
 
 export const GET_INGREDIENTS_REQUEST = 'GET_INGREDIENTS_REQUEST';
 export const GET_INGREDIENTS_SUCCESS = 'GET_INGREDIENTS_SUCCESS';
 export const GET_INGREDIENTS_FAILED = 'GET_INGREDIENTS_FAILED';
 
 export const getIngredients = () =>  (dispatch) => {
+  dispatch(setLoading(true))
     dispatch({
       type: GET_INGREDIENTS_REQUEST
     })
@@ -15,6 +18,7 @@ export const getIngredients = () =>  (dispatch) => {
           type: GET_INGREDIENTS_SUCCESS,
           payload: res.data
         })
+        dispatch(setLoading(false))
     })
     .catch( err => {
       dispatch({
@@ -23,9 +27,3 @@ export const getIngredients = () =>  (dispatch) => {
     })
 }
 
-export const checkRes = (res) => {
-  if (res.ok) {
-    return res.json();
-  }
-  return Promise.reject(res);
-};

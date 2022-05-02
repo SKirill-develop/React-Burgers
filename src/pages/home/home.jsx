@@ -7,7 +7,7 @@ import { HTML5Backend } from "react-dnd-html5-backend";
 import styles from "./home.module.css";
 
 export const Home = () => {
-  const isLoading = useSelector((state) => state.ingredients.isLoading);
+  const isLoading = useSelector((state) => state.isLoading);
 
   return (
     <>

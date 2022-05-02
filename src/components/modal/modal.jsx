@@ -11,8 +11,7 @@ const Modal = ({ title, onClose, children }) => {
 
   const history = useHistory();
   const closeModal = () => {
-    onClose ? onClose() :
-      history.goBack();
+    onClose ? onClose() : history.goBack();
   };
 
   useEffect(() => {
@@ -37,8 +36,7 @@ const Modal = ({ title, onClose, children }) => {
         </span>
         <h3
           className={
-            modalStyles.title +
-            " text text_type_main-large pr-10 mt-10 pl-10 pt-3"
+            modalStyles.title + " text text_type_main-large pr-10 pl-10 pt-3"
           }
         >
           {title}
