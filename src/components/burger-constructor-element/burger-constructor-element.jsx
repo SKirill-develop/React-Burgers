@@ -4,7 +4,7 @@ import { useDrop, useDrag } from "react-dnd";
 import {
   CONSTRUCTOR_REORDER,
   CONSTRUCTOR_DELETE,
-} from "../../services/actions/constructor";
+} from "../../services/constants/index";
 import {
   DragIcon,
   ConstructorElement,

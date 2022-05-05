@@ -4,11 +4,11 @@ import { useHistory } from 'react-router-dom';
 import style from "./burger-constructor.module.css";
 import Modal from "../modal/modal";
 import OrderDetails from "../order-details/order-details";
+import { addToConstructor } from "../../services/actions/constructor";
 import {
-  addToConstructor,
   NEW_INGREDIENT,
   CONSTRUCTOR_RESET,
-} from "../../services/actions/constructor";
+} from "../../services/constants/index";
 import { BurgerConstructorElement } from "../burger-constructor-element/burger-constructor-element";
 import { useDrop } from "react-dnd";
 import {
@@ -136,7 +136,6 @@ const BurgerConstructor = () => {
               <OrderDetails orderNumber={orderModalData.order.number} />
             </Modal>
           )}
-      
     </section>
   );
 };

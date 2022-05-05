@@ -9,10 +9,7 @@ import {
   resetRefreshTokenApi,
 } from "../../utils/burger-api";
 import { setLoading } from '../actions/loading';
-
-export const SET_USER_AUTH = "SET_USER_AUTH";
-export const SET_USER = "SET_USER";
-export const CLEAR_USER = "CLEAR_USER";
+import { SET_USER_AUTH, SET_USER, CLEAR_USER } from "../constants/index";
 
 export const setIsAuth = (data) => ({
   type: SET_USER_AUTH,
@@ -26,7 +23,7 @@ export const setUserData = (data) => ({
 
 export const clearUserData = () => ({ type: CLEAR_USER });
 
-const resetRefreshToken = (next) => {
+const resetRefreshToken = (next) => dispatch => {
   const token = localStorage.getItem("refreshToken");
   if (token) {
     resetRefreshTokenApi()
@@ -35,7 +32,7 @@ const resetRefreshToken = (next) => {
           localStorage.setItem("accessToken", res.accessToken);
           localStorage.setItem("refreshToken", res.refreshToken);
           console.log(res);
-          next();
+          dispatch(next);
         }
       })
       .catch((error) => {
@@ -103,12 +100,11 @@ export const getUser = () => (dispatch) => {
       })
       .catch((error) => {
         if (error.status === 403) {
-          console.log(`getUser 403: ${error}`);
-          resetRefreshToken(getUser());
+          dispatch(resetRefreshToken(getUser()));
         } else {
-          console.log(`ERROR: ${error}`);
+          console.log(`ERROR: ${error.status}`);
         }
-        console.log(`ERROR: ${error}`);
+        console.log(`ERROR: ${error.status}`);
       })
     .finally(() => dispatch(setLoading(false)));
 };

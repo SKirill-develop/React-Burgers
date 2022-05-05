@@ -1,8 +1,7 @@
 .app__container{
   display: flex;
-  width: 1240px;
-  height: calc(100vh - 88px);
+  justify-content: space-between;
+  max-width: 1240px;
   margin: auto;
-  position: relative;
   margin-top: 50px;
 }

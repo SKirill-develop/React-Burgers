@@ -1,4 +1,4 @@
-import { SET_USER_AUTH, SET_USER, CLEAR_USER } from "../actions/auth";
+import { SET_USER_AUTH, SET_USER, CLEAR_USER } from "../constants/index";
 
 export const isAuth = (state = false, action) => {
   switch (action.type) {

@@ -3,8 +3,7 @@ import {
   CONSTRUCTOR_DELETE,
   CONSTRUCTOR_REORDER,
   CONSTRUCTOR_RESET
-} from '../actions/constructor'
-
+} from '../constants/index'
 
 const initialState = {
   bun: null,
