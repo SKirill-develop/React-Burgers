@@ -8,10 +8,12 @@ import {
 } from "../../services/actions/webSockets";
 import { FeedOrderDetails } from "../../components/feedOrderDetails/feedOrderDetails";
 import styles from "./orderDetails.module.css";
+import { LocationState } from "../../services/types/index"
+
 
 export const OrderDetails = () => {
   const dispatch = useDispatch();
-  const location = useLocation();
+  const location = useLocation<LocationState>();
 
   useEffect(() => {
     if (location.pathname.includes("/profile")) {

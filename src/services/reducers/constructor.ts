@@ -2,29 +2,41 @@ import {
   CONSTRUCTOR_ADD,
   CONSTRUCTOR_DELETE,
   CONSTRUCTOR_REORDER,
-  CONSTRUCTOR_RESET
-} from '../constants/index'
+  CONSTRUCTOR_RESET,
+} from "../constants/index";
+import {
+  IAddIngredientToConstructor,
+  IDeleteIngredientsToConstructor,
+  IReorderIngredientsToConstructor,
+} from "../actions/interfaces";
+import { TConstructorType } from "../types/index";
 
 const initialState = {
   bun: null,
   ingredients: [],
 };
 
-export const constructorReducer = (state = initialState, action) => {
+export const constructorReducer = (
+  state: TConstructorType = initialState,
+  action:
+    | IAddIngredientToConstructor
+    | IDeleteIngredientsToConstructor
+    | IReorderIngredientsToConstructor
+) => {
   switch (action.type) {
     case CONSTRUCTOR_ADD: {
-      if (action.payload.type === 'bun') {
-        return {...state, bun: action.payload}
+      if (action.payload.type === "bun") {
+        return { ...state, bun: action.payload };
       }
       return {
         ...state,
-        ingredients:[...state.ingredients, action.payload],
+        ingredients: [...state.ingredients, action.payload],
       };
     }
     case CONSTRUCTOR_DELETE: {
       return {
         ...state,
-        ingredients:[
+        ingredients: [
           ...state.ingredients.slice(0, action.payload),
           ...state.ingredients.slice(action.payload + 1),
         ],
@@ -43,10 +55,10 @@ export const constructorReducer = (state = initialState, action) => {
       };
     }
     case CONSTRUCTOR_RESET: {
-      return initialState
+      return initialState;
     }
     default: {
-      return state
+      return state;
     }
   }
-}
+};

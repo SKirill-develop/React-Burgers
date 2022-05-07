@@ -7,7 +7,7 @@ import { TIngredientType } from '../../services/types/index'
 import styles from './feedOrderDetails.module.css';
 
 export const FeedOrderDetails = () => {
-  const ingredients = useSelector((store) => store.ingredients.data);
+  const ingredients = useSelector((store) => store.ingredients);
   const router = useParams<any>();
 
   const currentOrderId = router.id;

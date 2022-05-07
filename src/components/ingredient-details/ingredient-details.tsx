@@ -6,10 +6,10 @@ import { TIngredientType } from '../../services/types';
 
 
 const IngredientDetails = () => {
-  const router = useParams<any>();
+  const router = useParams<{id: string}>();
 
   const ingredientId = router.id;
-  const ingredients = useSelector((store) => store.ingredients.data);
+  const ingredients = useSelector((store) => store.ingredients);
   const ingredient: TIngredientType | undefined = ingredients.find((el: TIngredientType) => el._id === ingredientId);
 
   return (

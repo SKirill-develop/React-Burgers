@@ -1,7 +1,8 @@
-import { Action, ActionCreator, Dispatch } from 'redux';
-import { ThunkAction } from 'redux-thunk';
-import { TIngredientsActions } from '../actions/interfaces'
-import { store } from '../store';
+import { Action, ActionCreator, Dispatch } from "redux";
+import { ThunkAction } from "redux-thunk";
+import { TIngredientsActions } from "../actions/interfaces";
+import { store } from "../store";
+import { ReactNode } from "react";
 
 export type TIngredientType = {
   _id: string;
@@ -16,7 +17,13 @@ export type TIngredientType = {
   image_mobile: string;
   image_large: string;
   __v: number;
-}
+  id?: string;
+};
+
+export type TConstructorType = {
+  bun: TIngredientType | null;
+  ingredients: [][];
+};
 
 export type TOrderType = {
   _id: string;
@@ -26,7 +33,7 @@ export type TOrderType = {
   createdAt: Date;
   updatedAt: Date;
   number: number;
-}
+};
 
 export type TOrderDetails = {
   success: boolean;
@@ -34,10 +41,45 @@ export type TOrderDetails = {
   order: {
     number: number;
   };
+};
+
+export interface LocationState {
+  background: LocationState;
+  hash: string;
+  key: string;
+  pathname: string;
+  search: string;
+  from: string;
+  state: {
+    background?: {
+      hash: string;
+      key: string;
+      pathname: string;
+      search: string;
+    };
+  };
+}
+
+export type TUserType = {
+  user: {
+    email: string;
+    name: string;
+  };
+}
+
+export interface IWsActions {
+  wsInit: string;
+  wsSendMessage: string;
+  onMessage: string;
+  onOpen: string;
+  wsClose: string;
+  onError: string;
+  onClose: string;
+  wsCustomUrlInit: string;
 }
 
 export interface IOrdersListProps {
-  placeShow?: 'profile'
+  placeShow?: "profile";
 }
 
 export interface IIngredientListProps {
@@ -52,7 +94,7 @@ export interface IIngredientCardProps {
 }
 
 export interface TOrderDetailsProps {
-  orderNumber: number,
+  orderNumber: number;
 }
 
 export interface IOrderCardProps {
@@ -60,7 +102,22 @@ export interface IOrderCardProps {
   showStatus?: boolean;
 }
 
-export type AppDispatch = Dispatch<TIngredientsActions>;
+export interface IModalOverlayProps {
+  closed: () => void;
+}
+
+export interface IModalProps {
+  title?: string;
+  children: ReactNode;
+  onClose?: () => void;
+}
+
+export interface IConstructorProps {
+  ingredient: TIngredientType;
+  index: number;
+}
+
+export type AppDispatch = typeof store.dispatch;
 
 export type RootState = ReturnType<typeof store.getState>;
 

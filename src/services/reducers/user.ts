@@ -1,6 +1,8 @@
 import { SET_USER_AUTH, SET_USER, CLEAR_USER } from "../constants/index";
+import { TUserType } from '../types/index';
+import { ISetUserAuth, ISetUser, IClearUser } from '../actions/interfaces'
 
-export const isAuth = (state = false, action) => {
+export const isAuth = (state: boolean = false, action: ISetUserAuth) => {
   switch (action.type) {
     case SET_USER_AUTH:
       return action.payload;
@@ -9,7 +11,7 @@ export const isAuth = (state = false, action) => {
   }
 };
 
-export const user = (state = null, action) => {
+export const user = (state: TUserType | null = null, action: ISetUser | IClearUser ) => {
   switch (action.type) {
     case SET_USER:
       return action.payload;

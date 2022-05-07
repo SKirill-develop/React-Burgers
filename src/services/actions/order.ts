@@ -1,12 +1,14 @@
 import { orderBurger as api } from "../../utils/burger-api";
-import { setLoading } from '../actions/loading';
+import { setLoading } from "./loading";
+import { setErrorMessage } from "./errorMessage";
+import {
+  CREATE_ORDER_REQUEST,
+  CREATE_ORDER_SUCCESS,
+  CREATE_ORDER_FAILED,
+} from "../constants/index";
+import { AppThunk, AppDispatch } from "../types/index";
 
-export const CREATE_ORDER_REQUEST = 'CREATE_ORDER_REQUEST';
-export const CREATE_ORDER_SUCCESS = 'CREATE_ORDER_SUCCESS';
-export const CREATE_ORDER_FAILED = 'CREATE_ORDER_FAILED';
-export const RESET_ORDER = 'RESET_ORDER';
-
-export const orderBurger = (orderData) => (dispatch) => {
+export const orderBurger: AppThunk = (orderData: Array<string>) => (dispatch: AppDispatch) => {
   dispatch(setLoading(true));
   dispatch({
     type: CREATE_ORDER_REQUEST,
@@ -23,6 +25,7 @@ export const orderBurger = (orderData) => (dispatch) => {
         type: CREATE_ORDER_FAILED,
         payload: err,
       });
+      dispatch(setErrorMessage(err.message));
     })
     .finally(() => dispatch(setLoading(false)));
-}
+};

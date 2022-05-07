@@ -1,13 +1,13 @@
 import { url } from "./constants";
 
-export const checkRes = (res) => {
+export const checkRes = (res: Response) => {
   if (res.ok) {
     return res.json();
   }
   return Promise.reject(res);
 };
 
-export const orderBurger = (orderData) => {
+export const orderBurger = (orderData: Array<string>) => {
   return fetch(`${url}/orders`, {
     method: "POST",
     headers: {
@@ -20,7 +20,7 @@ export const orderBurger = (orderData) => {
   }).then(checkRes);
 };
 
-export const resetPassword = (email) => {
+export const resetPassword = (email: string) => {
   return fetch(`${url}/password-reset`, {
     method: "POST",
     headers: {
@@ -32,7 +32,7 @@ export const resetPassword = (email) => {
   }).then(checkRes);
 };
 
-export const registerUser = (email, password, username) => {
+export const registerUser = (email: string, password: string, username: string) => {
   return fetch(`${url}/auth/register`, {
     method: "POST",
     headers: {
@@ -46,7 +46,7 @@ export const registerUser = (email, password, username) => {
   }).then(checkRes);
 };
 
-export const loginUser = (email, password) => {
+export const loginUser = (email: string, password: string) => {
   return fetch(`${url}/auth/login`, {
     method: "POST",
     headers: {
@@ -81,7 +81,7 @@ export const getUserApi = () => {
   }).then(checkRes);
 };
 
-export const updateUserApi = (name, email, password) => {
+export const updateUserApi = (name: string, email: string, password: string) => {
   return fetch(`${url}/auth/user`, {
     method: "PATCH",
     headers: {
@@ -96,7 +96,7 @@ export const updateUserApi = (name, email, password) => {
   }).then(checkRes);
 };
 
-export const resetPasswordApi = (email) => {
+export const resetPasswordApi = (email: string) => {
   return fetch(`${url}/password-reset`, {
     method: "POST",
     headers: {
@@ -108,7 +108,7 @@ export const resetPasswordApi = (email) => {
   }).then(checkRes);
 };
 
-export const setNewPasswordApi = (password, token) => {
+export const setNewPasswordApi = (password: string, token: string) => {
   return fetch(`${url}/password-reset/reset/`, {
     method: "POST",
     headers: {

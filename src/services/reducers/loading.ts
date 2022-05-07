@@ -1,5 +1,5 @@
 import { SET_LOADING } from "../constants/index";
-import { ISetLoading } from '../actions/interfaces';
+import { ISetLoading } from "../actions/interfaces";
 
 export const isLoading = (state: boolean = true, action: ISetLoading) => {
   switch (action.type) {
@@ -9,3 +9,5 @@ export const isLoading = (state: boolean = true, action: ISetLoading) => {
       return state;
   }
 };
+
+

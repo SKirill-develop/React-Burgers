@@ -9,7 +9,7 @@ import styles from './editProfileForm.module.css';
 export const EditProfileForm = () => {
   const dispatch = useDispatch();
 
-  const { user } = useSelector((store) => ({
+  const { user } = useSelector<any>((store) => ({
     user: store.user,
   }));
 
@@ -76,10 +76,10 @@ export const EditProfileForm = () => {
         <PasswordInput name="password" onChange={handleChangeInput} value={formValue.password} />
         {checkFormEdited()
           && (
-          <div className={styles.editProfileForm__buttons}>
-            <Button htmlType="submit" type="primary">Сохранить</Button>
-            <Button htmlType="reset" type="secondary">Отмена</Button>
-          </div>
+            <div className={styles.editProfileForm__buttons}>
+              <Button htmlType="submit" type="primary">Сохранить</Button>
+              <Button htmlType="reset" type="secondary">Отмена</Button>
+            </div>
           )}
       </fieldset>
     </form>

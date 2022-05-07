@@ -1,5 +1,5 @@
 import { Input, PasswordInput, Button } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useState , ChangeEvent, FormEvent} from 'react';
+import { useState, ChangeEvent, FormEvent } from 'react';
 import { useDispatch } from '../../services/hooks';
 import { Link } from 'react-router-dom';
 import { register } from '../../services/actions/auth';

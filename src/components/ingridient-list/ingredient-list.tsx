@@ -5,7 +5,7 @@ import { BurgerIngredient } from "../burger-ingredient/burger-ingredient";
 import { IIngredientListProps, TIngredientType } from '../../services/types/index'
 
 const IngredientList = forwardRef<HTMLDivElement, IIngredientListProps>(({ data, title, id }, ref: any) => {
-  const burgerConstructor = useSelector((state) => state.burgerConstructor);
+  const burgerConstructor: { bun: TIngredientType, ingredients: Array<TIngredientType> } = useSelector((state) => state.burgerConstructor);
 
   const ingredientCounters = useMemo(() => {
     const { bun, ingredients } = burgerConstructor;

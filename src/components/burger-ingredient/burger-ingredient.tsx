@@ -4,10 +4,10 @@ import { Link, useLocation } from 'react-router-dom';
 import { NEW_INGREDIENT } from "../../services/constants/index";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Counter } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/counter";
-import { IIngredientCardProps } from '../../services/types/index'
+import { IIngredientCardProps, LocationState } from '../../services/types/index'
 
-export const BurgerIngredient= ({ingredient, count}: IIngredientCardProps, ref: any) => {
-  const location = useLocation();
+export const BurgerIngredient= ({ingredient, count}: IIngredientCardProps, ref: HTMLLIElement) => {
+  const location = useLocation<LocationState>();
 
   const [, drag] = useDrag(() => ({
     type: NEW_INGREDIENT,

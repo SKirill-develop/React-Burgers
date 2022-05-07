@@ -4,10 +4,10 @@ import { Link, useLocation } from "react-router-dom";
 import { useSelector } from "../../services/hooks";
 import { dateFormat } from "../../utils/date-format";
 import styles from "./orderCard.module.css";
-import { IOrderCardProps, TIngredientType } from '../../services/types/index';
+import { IOrderCardProps, LocationState, TIngredientType } from '../../services/types/index';
 
 export const OrderCard: FC<IOrderCardProps> = ({ orderData, showStatus }) => {
-  const location = useLocation();
+  const location = useLocation<LocationState>();
   const ingredients = useSelector((store) => store.ingredients);
   const orderDataIngredients: Array<TIngredientType> = [];
 
@@ -44,9 +44,8 @@ export const OrderCard: FC<IOrderCardProps> = ({ orderData, showStatus }) => {
       <h2 className="text text_type_main-medium">{orderData.name}</h2>
       {showStatus && (
         <p
-          className={`text text_type_main-default ${
-            orderData.status === "done" && styles.orderCard__status_done
-          }`}
+          className={`text text_type_main-default ${orderData.status === "done" && styles.orderCard__status_done
+            }`}
         >
           {status[orderData.status]}
         </p>

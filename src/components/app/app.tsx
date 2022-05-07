@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import AppHeader from "../app-header/app-header";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "../../services/hooks";
 import { Switch, Route, useLocation } from "react-router-dom";
 import { getIngredients } from "../../services/actions/ingredients";
 import { Home } from "../../pages/home/home";
@@ -16,13 +16,16 @@ import { ProtectedRoute } from "../protectedRoute/protectedRoute";
 import { getUser } from "../../services/actions/auth";
 import { FeedOrderDetails } from "../feedOrderDetails/feedOrderDetails";
 import IngredientDetails from "../ingredient-details/ingredient-details";
-import Modal from "../modal/modal";
+import { Modal } from "../modal/modal";
 import styles from "./app.module.css";
+import { LocationState } from "../../services/types/index"
+import { ErrorBlock } from '../errorBlock/errorBlock';
 
 const App = () => {
   const dispatch = useDispatch();
-  const location = useLocation<any>();
+  const location = useLocation<LocationState>();
   const background = location.state && location.state.background;
+  const errorMessage = useSelector((store) => store.errorMessage);
 
   useEffect(() => {
     dispatch(getIngredients());
@@ -32,6 +35,7 @@ const App = () => {
   return (
     <>
       <AppHeader />
+      {errorMessage && <ErrorBlock />}
       <Switch location={background || location}>
         <Route exact path={["/", "/react-burgers"]} component={Home} />
         <Route exact path="/login" component={Login} />
