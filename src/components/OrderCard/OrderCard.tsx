@@ -11,7 +11,7 @@ export const OrderCard: FC<IOrderCardProps> = ({ orderData, showStatus }) => {
   const ingredients = useSelector((store) => store.ingredients);
   const orderDataIngredients: Array<TIngredientType> = [];
 
-  const status: {[key: string]: string} = {
+  const status: { [key: string]: string } = {
     created: "Создан",
     pending: "Готовится",
     done: "Выполнен",

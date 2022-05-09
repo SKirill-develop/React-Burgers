@@ -16,9 +16,9 @@ export const getIngredients: AppThunk = () => (dispatch) => {
       });
     })
     .catch((err) => {
-      dispatch(setErrorMessage("Ингридиенты не получены!"))
+      dispatch(setErrorMessage("Ингридиенты не получены!"));
       setTimeout(() => {
-        dispatch(setErrorMessage(''));
+        dispatch(setErrorMessage(""));
       }, 2000);
     })
     .finally(() => dispatch(setLoading(false)));

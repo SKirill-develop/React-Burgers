@@ -19,11 +19,11 @@ export const FeedOrderDetails = () => {
   const orderDataIngredients: Array<TIngredientType> = [];
 
   currentOrder && currentOrder.ingredients.forEach((ingredient: string) => {
-    const findedIngredient: TIngredientType | undefined  = ingredients.find((el: TIngredientType) => el._id === ingredient);
+    const findedIngredient: TIngredientType | undefined = ingredients.find((el: TIngredientType) => el._id === ingredient);
     findedIngredient && orderDataIngredients.push(findedIngredient);
   });
 
-  const getIngredientCount = (id: string) : number => {
+  const getIngredientCount = (id: string): number => {
     let count = 0;
     orderDataIngredients.forEach((ingredient: TIngredientType) => {
       if (ingredient._id === id) count += 1;

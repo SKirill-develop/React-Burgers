@@ -7,7 +7,7 @@ import {
   WS_CUSTOM_URL_CONNECTION_START,
   WS_GET_ORDERS,
   WS_SEND_MESSAGE,
-  SET_WS_ORDERS
+  SET_WS_ORDERS,
 } from "../actions/webSockets";
 
 export const wsActions = {

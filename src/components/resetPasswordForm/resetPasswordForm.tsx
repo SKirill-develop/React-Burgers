@@ -1,5 +1,5 @@
 import { Button, Input, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useState, useCallback, ChangeEvent, SyntheticEvent}  from 'react';
+import { useState, useCallback, ChangeEvent, SyntheticEvent } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { setNewPassword } from '../../services/actions/auth';
 
@@ -36,7 +36,7 @@ export const ResetPasswordForm = () => {
       setFormValid(false);
       history.push('/login');
     },
-    [ password, token, history],
+    [password, token, history],
   );
 
   return (

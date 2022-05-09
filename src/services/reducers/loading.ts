@@ -9,5 +9,3 @@ export const isLoading = (state: boolean = true, action: ISetLoading) => {
       return state;
   }
 };
-
-

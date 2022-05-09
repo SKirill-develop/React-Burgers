@@ -32,7 +32,11 @@ export const resetPassword = (email: string) => {
   }).then(checkRes);
 };
 
-export const registerUser = (email: string, password: string, username: string) => {
+export const registerUser = (
+  email: string,
+  password: string,
+  username: string
+) => {
   return fetch(`${url}/auth/register`, {
     method: "POST",
     headers: {
@@ -81,7 +85,11 @@ export const getUserApi = () => {
   }).then(checkRes);
 };
 
-export const updateUserApi = (name: string, email: string, password: string) => {
+export const updateUserApi = (
+  name: string,
+  email: string,
+  password: string
+) => {
   return fetch(`${url}/auth/user`, {
     method: "PATCH",
     headers: {

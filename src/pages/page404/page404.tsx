@@ -2,7 +2,7 @@ import styles from "./page404.module.css";
 
 export const Page404 = () => (
   <div className={styles.section}>
-  <p className="text text_type_main-large mb-20">Ooops! Page not found!</p>
+    <p className="text text_type_main-large mb-20">Ooops! Page not found!</p>
     <svg
       xmlns="http://www.w3.org/2000/svg"
       xmlnsXlink="http://www.w3.org/1999/xlink"
@@ -10,8 +10,8 @@ export const Page404 = () => (
       height="290"
       viewBox="0 0 470 290"
     >
-<style>
-{`
+      <style>
+        {`
 .fundo{
   animation: scales 3s alternate  infinite;
   transform-origin: center;
@@ -92,7 +92,7 @@ export const Page404 = () => (
   }
 }
 `}
-</style>
+      </style>
       <defs>
         <path
           className="fundo"

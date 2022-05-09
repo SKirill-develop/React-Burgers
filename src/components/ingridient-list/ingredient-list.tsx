@@ -10,7 +10,6 @@ const IngredientList = forwardRef<HTMLUListElement, IIngredientListProps>(({ dat
   const ingredientCounters = useMemo(() => {
     const { bun, ingredients } = burgerConstructor;
 
-  //  const counters: {[key: string]: number } = [];
     const counters: any = [];
 
     ingredients.forEach((ingredient: TIngredientType) => {
