@@ -1,6 +1,6 @@
 .section {
   width: 100%;
-  height: 90vh;
+  height: 50vh;
   display: flex;
   align-items: center;
 }
@@ -14,7 +14,7 @@
   display: inline-block;
   position: relative;
   color: #fff;
-  left: 50%;
+  left: 45%;
   -webkit-animation: animloader 2s ease infinite;
           animation: animloader 2s ease infinite;
 }

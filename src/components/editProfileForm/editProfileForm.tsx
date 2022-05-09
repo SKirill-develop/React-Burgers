@@ -1,7 +1,7 @@
 import {
   Button, EmailInput, Input, PasswordInput,
 } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useEffect, useState, SyntheticEvent } from 'react';
+import { useEffect, useState, SyntheticEvent, ChangeEvent } from 'react';
 import { getUser, updateUser } from '../../services/actions/auth';
 import { useDispatch, useSelector } from '../../services/hooks';
 import styles from './editProfileForm.module.css';
@@ -9,9 +9,7 @@ import styles from './editProfileForm.module.css';
 export const EditProfileForm = () => {
   const dispatch = useDispatch();
 
-  const { user } = useSelector<any>((store) => ({
-    user: store.user,
-  }));
+  const user = useSelector((store) => store.user);
 
   const [formValue, setFormValue] = useState({
     name: user?.name || '',
@@ -33,8 +31,8 @@ export const EditProfileForm = () => {
 
   const resetForm = () => {
     setFormValue({
-      name: user.name || '',
-      email: user.email || '',
+      name: user?.name || '',
+      email: user?.email || '',
       password: '',
     });
   };
@@ -51,7 +49,7 @@ export const EditProfileForm = () => {
     });
   }, [user]);
 
-  const handleChangeInput = (event: any) => {
+  const handleChangeInput = (event: ChangeEvent<HTMLInputElement>) => {
     setFormValue((prevState) => ({
       ...prevState,
       [event.target.name]: event.target.value,

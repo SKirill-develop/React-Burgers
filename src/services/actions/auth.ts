@@ -11,7 +11,7 @@ import {
 import { setLoading } from "./loading";
 import { setErrorMessage } from "./errorMessage";
 import { SET_USER_AUTH, SET_USER, CLEAR_USER } from "../constants/index";
-import { AppDispatch, AppThunk, TUserType } from "../types/index";
+import { AppThunk, TUserInfoType, TUserType } from "../types/index";
 import { ISetUser } from "./interfaces";
 
 export const setIsAuth = (data: boolean) => ({
@@ -29,7 +29,7 @@ export const clearUserData = () => ({
   payload: null,
 });
 
-const resetRefreshToken = (next: any) => (dispatch: AppDispatch) => {
+const resetRefreshToken: AppThunk = (next: any) => (dispatch) => {
   const token = localStorage.getItem("refreshToken");
   if (token) {
     resetRefreshTokenApi()
@@ -52,7 +52,7 @@ const resetRefreshToken = (next: any) => (dispatch: AppDispatch) => {
   }
 };
 
-export const register: AppThunk = (email: string, password: string, name: string) => (dispatch: AppDispatch) => {
+export const register: AppThunk = (email: string, password: string, name: string) => (dispatch) => {
   dispatch(setLoading(true));
   registerUser(email, password, name)
     .then((res) => {
@@ -70,7 +70,7 @@ export const register: AppThunk = (email: string, password: string, name: string
     .finally(() => dispatch(setLoading(false)));
 };
 
-export const login: AppThunk = (email: string, password: string) => (dispatch: AppDispatch) => {
+export const login: AppThunk = (email: string, password: string) => (dispatch) => {
   dispatch(setLoading(true));
   loginUser(email, password)
     .then((res) => {
@@ -90,7 +90,7 @@ export const login: AppThunk = (email: string, password: string) => (dispatch: A
     .finally(() => dispatch(setLoading(false)));
 };
 
-export const logout = () => (dispatch: AppDispatch) => {
+export const logout: AppThunk = () => (dispatch) => {
   logoutUser()
     .then((res) => {
       if (res.success) {
@@ -109,7 +109,7 @@ export const logout = () => (dispatch: AppDispatch) => {
     .finally(() => dispatch(setIsAuth(false)));
 };
 
-export const getUser = () => (dispatch: AppDispatch) => {
+export const getUser: AppThunk = () => (dispatch) => {
   dispatch(setLoading(true));
   const token = localStorage.getItem("accessToken");
   token &&
@@ -133,7 +133,7 @@ export const getUser = () => (dispatch: AppDispatch) => {
       .finally(() => dispatch(setLoading(false)));
 };
 
-export const updateUser = (data: {name: string, email: string, password: string}) => (dispatch: AppDispatch) => {
+export const updateUser: AppThunk = (data: TUserInfoType) => (dispatch) => {
   const { name, email, password } = data;
   updateUserApi(name, email, password)
     .then((res) => {
@@ -152,7 +152,7 @@ export const updateUser = (data: {name: string, email: string, password: string}
     });
 };
 
-export const resetPassword: AppThunk = (email: string) => (dispatch: AppDispatch) => {
+export const resetPassword: AppThunk = (email: string) => (dispatch) => {
   dispatch(setLoading(true));
   resetPasswordApi(email)
     .then((res) => console.log(res))
@@ -165,7 +165,7 @@ export const resetPassword: AppThunk = (email: string) => (dispatch: AppDispatch
     .finally(() => dispatch(setLoading(false)));
 };
 
-export const setNewPassword: AppThunk = (password: string, token: string) => (dispatch: AppDispatch) => {
+export const setNewPassword: AppThunk = (password: string, token: string) => (dispatch) => {
   dispatch(setLoading(true));
   setNewPasswordApi(password, token)
     .then((res) => console.log(res))

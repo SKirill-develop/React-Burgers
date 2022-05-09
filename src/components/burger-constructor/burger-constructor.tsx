@@ -25,9 +25,9 @@ const BurgerConstructor = () => {
   const history = useHistory();
 
   const isAuth = useSelector((store) => store.isAuth);
-  const constructorItems = useSelector((state: any) => state.burgerConstructor);
-  const orderRequest = useSelector((state: any) => state.order.isLoading);
-  const orderModalData = useSelector((state: any) => state.order.data);
+  const constructorItems = useSelector((state) => state.burgerConstructor);
+  const orderRequest = useSelector((state) => state.order.isLoading);
+  const orderModalData = useSelector((state) => state.order.data);
 
   const [, drop] = useDrop(() => ({
     accept: NEW_INGREDIENT,

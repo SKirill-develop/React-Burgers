@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo, RefObject } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { useInView } from "react-intersection-observer";
 import IngredientList from "../ingridient-list/ingredient-list";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
@@ -6,7 +6,7 @@ import IngredientStyles from "./burger-ingredients.module.css";
 import { useSelector } from "../../services/hooks";
 import { TIngredientType } from '../../services/types/index'
 
-const BurgerIngredients= () => {
+const BurgerIngredients = () => {
   const data = useSelector((state) => state.ingredients);
   const [currentTab, setCurrentTab] = useState("buns");
 
@@ -38,7 +38,7 @@ const BurgerIngredients= () => {
     }
   }, [inViewBuns, inViewSauces, inViewFilling]);
 
-  const onTabClick = (tab: any) => {
+  const onTabClick = (tab: string) => {
     setCurrentTab(tab);
     const element = document.getElementById(tab);
     if (element) {

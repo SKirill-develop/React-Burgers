@@ -3,9 +3,9 @@ import { checkRes } from "../../utils/burger-api";
 import { setLoading } from "./loading";
 import { setErrorMessage } from "./errorMessage";
 import { GET_INGREDIENTS_SUCCESS } from "../constants/index";
-import { AppThunk, AppDispatch } from "../types/index";
+import { AppThunk } from "../types/index";
 
-export const getIngredients: AppThunk = () => (dispatch: AppDispatch) => {
+export const getIngredients: AppThunk = () => (dispatch) => {
   dispatch(setLoading(true));
   return fetch(`${url}/ingredients`)
     .then(checkRes)

@@ -1,4 +1,4 @@
-import { Action, ActionCreator, Dispatch } from "redux";
+import { Action, ActionCreator } from "redux";
 import { ThunkAction } from "redux-thunk";
 import { TIngredientsActions } from "../actions/interfaces";
 import { store } from "../store";
@@ -22,7 +22,7 @@ export type TIngredientType = {
 
 export type TConstructorType = {
   bun: TIngredientType | null;
-  ingredients: [][];
+  ingredients: Array<TIngredientType>;
 };
 
 export type TOrderType = {
@@ -35,12 +35,34 @@ export type TOrderType = {
   number: number;
 };
 
+export type TOrderResponse = {
+  ingredients: Array<TIngredientType>;
+  _id: string;
+  owner: {
+    name: string;
+    email: string;
+    createdAt: Date;
+    updatedAt: Date;
+  };
+  status: string;
+  name: string;
+  createdAt: Date;
+  updatedAt: Date;
+  number: number;
+  price: number;
+};
+
+export type TOrderState = {
+  data: TOrderDetails | null | undefined;
+  isLoading: boolean;
+  error: null | boolean;
+  number?: number;
+};
+
 export type TOrderDetails = {
   success: boolean;
   name: string;
-  order: {
-    number: number;
-  };
+  order: TOrderResponse;
 };
 
 export interface LocationState {
@@ -61,11 +83,29 @@ export interface LocationState {
 }
 
 export type TUserType = {
-  user: {
-    email: string;
-    name: string;
+  email: string;
+  name: string;
+};
+
+export type TUserInfoType = TUserType & {
+  password: string;
+};
+
+export type TWsOrdersType = {
+  success: boolean;
+  orders: Array<TOrderType>;
+  total: number;
+  totalToday: number;
+};
+
+export type TWsOrdersStartType = {
+  wsConnected: boolean;
+  messages: {
+    orders: Array<TOrderType>;
+    total: number;
+    totalToday: number;
   };
-}
+};
 
 export interface IWsActions {
   wsInit: string;

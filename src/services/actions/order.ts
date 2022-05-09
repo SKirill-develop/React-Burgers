@@ -6,9 +6,9 @@ import {
   CREATE_ORDER_SUCCESS,
   CREATE_ORDER_FAILED,
 } from "../constants/index";
-import { AppThunk, AppDispatch } from "../types/index";
+import { AppThunk } from "../types/index";
 
-export const orderBurger: AppThunk = (orderData: Array<string>) => (dispatch: AppDispatch) => {
+export const orderBurger: AppThunk = (orderData: Array<string>) => (dispatch) => {
   dispatch(setLoading(true));
   dispatch({
     type: CREATE_ORDER_REQUEST,

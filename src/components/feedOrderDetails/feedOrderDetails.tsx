@@ -3,15 +3,19 @@ import { useParams } from 'react-router-dom';
 import { useSelector } from "../../services/hooks";
 import { dateFormat } from '../../utils/date-format';
 import { Loader } from '../loader/loader';
-import { TIngredientType } from '../../services/types/index'
+import { TIngredientType, TOrderType } from '../../services/types/index'
 import styles from './feedOrderDetails.module.css';
+
+interface IRouteId {
+  id: string;
+}
 
 export const FeedOrderDetails = () => {
   const ingredients = useSelector((store) => store.ingredients);
-  const router = useParams<any>();
+  const router = useParams<IRouteId>();
 
   const currentOrderId = router.id;
-  const currentOrder = useSelector((store) => store.feedOrders?.orders.find((order: any) => order._id === currentOrderId));
+  const currentOrder = useSelector((store) => store.feedOrders?.orders?.find((order: TOrderType) => order._id === currentOrderId));
   const orderDataIngredients: Array<TIngredientType> = [];
 
   currentOrder && currentOrder.ingredients.forEach((ingredient: string) => {

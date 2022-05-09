@@ -1,9 +1,9 @@
-import { Redirect, Route, useLocation } from "react-router-dom";
+import { Redirect, Route, RouteProps, useLocation } from "react-router-dom";
 import { useSelector } from "../../services/hooks";
 import { LocationState } from "../../services/types/index"
 
 
-export const ProtectedRoute = ({ path, component }: any) => {
+export const ProtectedRoute = ({ path, component }: RouteProps) => {
   const isAuth = useSelector((store) => store.isAuth);
   const location = useLocation<LocationState>();
 

@@ -1,8 +1,13 @@
-import { TIngredientType, TOrderDetails, TUserType } from "../types/index";
+import {
+  TIngredientType,
+  TOrderDetails,
+  TOrderState,
+  TUserType,
+  TWsOrdersType,
+} from "../types/index";
 import {
   GET_INGREDIENTS_SUCCESS,
   SET_LOADING,
-  NEW_INGREDIENT,
   SET_ERROR_MESSAGE,
   CONSTRUCTOR_ADD,
   CONSTRUCTOR_DELETE,
@@ -16,11 +21,7 @@ import {
   SET_USER,
   CLEAR_USER,
 } from "../constants/index";
-
-// export interface IAddIngredients {
-//   readonly type: typeof NEW_INGREDIENT;
-//   readonly payload: TIngredientType;
-// }
+import { SET_WS_ORDERS } from "../actions/webSockets";
 
 export interface ISetLoading {
   readonly type: typeof SET_LOADING;
@@ -61,26 +62,34 @@ export interface ISetUser {
 }
 
 export interface IClearUser {
-  readonly type:  typeof CLEAR_USER;
+  readonly type: typeof CLEAR_USER;
   readonly payload: null;
 }
 
 export interface ISetUserAuth {
-  readonly type: typeof SET_USER_AUTH ;
+  readonly type: typeof SET_USER_AUTH;
   readonly payload: boolean;
 }
 
 export interface IOrderDetails {
   readonly type:
     | typeof CREATE_ORDER_REQUEST
-    | typeof CREATE_ORDER_SUCCESS
     | typeof CREATE_ORDER_FAILED
     | typeof RESET_ORDER;
+  readonly payload?: TOrderState;
+}
+
+export interface IOrderDetailsSuccess {
+  readonly type: typeof CREATE_ORDER_SUCCESS;
   readonly payload?: TOrderDetails;
 }
 
+export interface ISetWSOrders {
+  readonly type: typeof SET_WS_ORDERS;
+  readonly payload: TWsOrdersType;
+}
+
 export type TIngredientsActions =
-  // | IAddIngredients
   | ISetLoading
   | IIngredients
   | ISetErrorMessage
@@ -90,4 +99,6 @@ export type TIngredientsActions =
   | ISetUser
   | IClearUser
   | ISetUserAuth
-  | IOrderDetails;
+  | IOrderDetails
+  | IOrderDetailsSuccess
+  | ISetWSOrders;

@@ -22,7 +22,7 @@ export const constructorReducer = (
     | IAddIngredientToConstructor
     | IDeleteIngredientsToConstructor
     | IReorderIngredientsToConstructor
-) => {
+): TConstructorType => {
   switch (action.type) {
     case CONSTRUCTOR_ADD: {
       if (action.payload.type === "bun") {

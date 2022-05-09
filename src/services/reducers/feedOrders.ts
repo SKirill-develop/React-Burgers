@@ -1,26 +1,18 @@
-import { SET_WS_ORDERS } from '../actions/webSockets'
-
-interface IOrdersInfo {
-  orders: any
-  total: number
-  totalToday: number
-}
-
-type TWsState = {
-  wsConnected: boolean
-  messages: IOrdersInfo
-}
+import { ISetWSOrders } from "../actions/interfaces";
+import { SET_WS_ORDERS } from "../actions/webSockets";
+import { TWsOrdersType } from "../types";
 
 const initialState = {
-  wsConnected: false,
-  messages: {
-    orders: [],
-    total: 0,
-    totalToday: 0
-  }
-}
+  success: false,
+  orders: [],
+  total: 0,
+  totalToday: 0,
+};
 
-export const feedOrders = (state: TWsState = initialState, action: any) => {
+export const feedOrders = (
+  state: TWsOrdersType = initialState,
+  action: ISetWSOrders
+): TWsOrdersType => {
   switch (action.type) {
     case SET_WS_ORDERS:
       return action.payload;
