@@ -4,11 +4,33 @@ li {
   align-items: center;
 }
 
+.add {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 80%;
+  border: 1px dashed #4c4cff;
+}
+
+.addMain {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.contain {
+  margin-top: 100px;
+  width: 600px;
+  height: calc(95vh - 200px);
+}
+
 .elements {
   max-height: 490px;
   overflow-y: auto;
   direction: ltr;
   scrollbar-width: thin;
+  height: 300px;
 }
 
 .elements::-webkit-scrollbar {

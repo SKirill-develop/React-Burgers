@@ -1,4 +1,7 @@
 .app__container{
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
+  max-width: 1240px;
+  margin: auto;
+  margin-top: 50px;
 }

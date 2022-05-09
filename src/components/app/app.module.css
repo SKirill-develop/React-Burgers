@@ -1,5 +1,8 @@
-.app__ingredientDetails {
+.detailPageWrap {
   max-width: 700px;
   margin: auto;
   margin-top: 100px;
+}
+.detailHeader{
+  text-align: center;
 }
